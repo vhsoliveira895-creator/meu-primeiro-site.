@@ -27,6 +27,3 @@
         }).catch(e => {
             console.log('✗ Auto-play bloqueado:', e.message);
         });
-    </script>
-</body>
-</html>
