@@ -1,0 +1,201 @@
+]633;E;;a28de87e-3d14-4c6a-b40c-8275e81a0015]633;C<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CellTech - Sua Loja de Celulares</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-bg">
+        <video id="bgVideo" autoplay muted loop playsinline crossorigin="anonymous">
+            <source src="http://localhost:8080/video.mp4" type="video/mp4">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- Progress -->
+    <div class="video-progress">
+        <div class="video-progress-bar" id="progressBar"></div>
+    </div>
+    <div class="video-percentage" id="videoPercent">0%</div>
+
+    <!-- Error message -->
+    <div class="video-error" id="videoError">
+        <p>Video não carregou!</p>
+        <p>Verifique o console</p>
+    </div>
+
+    <header>
+        <div class="logo">Cell<span>Tech</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#products">Produtos</a></li>
+                <li><a href="#videos">Vídeos</a></li>
+                <li><a href="#features">Serviços</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Encontre o <span>celular perfeito</span> para você</h1>
+            <p>Smartphones das melhores marcas com os melhores preços do mercado</p>
+            <a href="#products" class="btn btn-primary">Ver Produtos</a>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="section-title">
+            <h2>Nossos Produtos</h2>
+            <p>Qualidade e preço justo</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>iPhone 15 Pro</h3>
+                    <div class="price">R$ 7.999<span class="old-price">R$ 8.499</span></div>
+                    <p class="description">256GB, Design em titânio, A17 Pro</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>Samsung Galaxy S24 Ultra</h3>
+                    <div class="price">R$ 6.499<span class="old-price">R$ 6.999</span></div>
+                    <p class="description">512GB, 200MP, S Pen</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>Google Pixel 8 Pro</h3>
+                    <div class="price">R$ 4.999<span class="old-price">R$ 5.499</span></div>
+                    <p class="description">128GB, Tensor G3, Câmera IA</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>Motorola Edge 40 Pro</h3>
+                    <div class="price">R$ 3.499<span class="old-price">R$ 3.999</span></div>
+                    <p class="description">256GB, 165Hz, 125W carregamento</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>Xiaomi 13 Pro</h3>
+                    <div class="price">R$ 4.299<span class="old-price">R$ 4.799</span></div>
+                    <p class="description">256GB, Câmera Leica, 120W</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3>Samsung Galaxy A54</h3>
+                    <div class="price">R$ 1.899<span class="old-price">R$ 2.199</span></div>
+                    <p class="description">128GB, Super AMOLED, IP67</p>
+                    <button class="btn-buy">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos" id="videos">
+        <div class="section-title">
+            <h2>Veja nossos produtos em ação</h2>
+            <p>Videos exclusivos</p>
+        </div>
+        <div class="videos-grid">
+            <div class="video-card">
+                <video controls crossorigin="anonymous">
+                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>S23 Ultra - Demonstração</h3>
+                </div>
+            </div>
+            <div class="video-card">
+                <video controls crossorigin="anonymous">
+                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Entrega Rápida</h3>
+                </div>
+            </div>
+            <div class="video-card">
+                <video controls crossorigin="anonymous">
+                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Tecnologia de Ponta</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Por Que Escolher a CellTech?</h2>
+            <p>Especialistas em smartphones</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Garantia Total</h3>
+                <p>12 meses de garantia</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Entrega Rápida</h3>
+                <p>Todo o Brasil</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Parcelamento</h3>
+                <p>até 12x sem juros</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎧</div>
+                <h3>Suporte</h3>
+                <p>Equipe especializada</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Fale Conosco</h2>
+        <p>Tire suas dúvidas</p>
+        <form class="contact-form">
+            <input type="text" placeholder="Seu nome" required>
+            <input type="email" placeholder="Seu email" required>
+            <input type="tel" placeholder="Seu telefone">
+            <textarea placeholder="Sua mensagem"></textarea>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2026 CellTech - Todos os direitos reservados</p>
+        <p style="margin-top: 0.5rem;">Condomínio 06, Bloco 18, Apartamento 204</p>
+    </footer>
+
+
+    <script src="js/app.js"></script>
+</body>
+</html>
