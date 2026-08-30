@@ -28,10 +28,10 @@ O site apresenta:
 
 ## Como testar localmente
 
-1. Clone o repositório:
+1. Clone o repositório (o nome no GitHub termina com ponto):
    ```bash
-   git clone https://github.com/vhsoliveira895-creator/meu-primeiro-site.git
-   cd meu-primeiro-site
+   git clone https://github.com/vhsoliveira895-creator/meu-primeiro-site.
+   cd meu-primeiro-site.
    ```
 
 2. Abra `index.html` diretamente em um navegador ou execute um servidor HTTP simples:
@@ -45,7 +45,10 @@ O site apresenta:
 
 ## Implantação no GitHub Pages
 
-Você pode publicar o site gratuitamente usando o GitHub Pages: basta configurar o branch `main` como fonte e, após alguns minutos, o site ficará disponível em `https://vhsoliveira895-creator.github.io/meu-primeiro-site/`.
+O site está no GitHub Pages (branch `main`, pasta `/`):
+
+- https://vhsoliveira895-creator.github.io/meu-primeiro-site./
+- se o ponto no nome do repositório atrapalhar o endereço, use também: https://vhsoliveira895-creator.github.io/meu-primeiro-site/
 
 ## Tecnologias utilizadas
 
