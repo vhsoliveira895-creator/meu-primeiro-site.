@@ -48,7 +48,8 @@ O site apresenta:
 O site está no GitHub Pages (branch `main`, pasta `/`):
 
 - https://vhsoliveira895-creator.github.io/meu-primeiro-site./
-- se o ponto no nome do repositório atrapalhar o endereço, use também: https://vhsoliveira895-creator.github.io/meu-primeiro-site/
+
+O endereço **sem** o ponto no final (`.../meu-primeiro-site/`) dá 404, porque o nome do repositório termina com ponto.
 
 ## Tecnologias utilizadas
 
