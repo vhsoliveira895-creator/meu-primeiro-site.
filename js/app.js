@@ -1,7 +1,6 @@
 const bgVideo = document.getElementById("bgVideo");
 const progressBar = document.getElementById("progressBar");
 const percentDisplay = document.getElementById("videoPercent");
-const videoError = document.getElementById("videoError");
 
 if (bgVideo) {
   bgVideo.addEventListener("loadedmetadata", function () {
@@ -16,10 +15,7 @@ if (bgVideo) {
   });
 
   bgVideo.addEventListener("error", function () {
-    if (videoError) {
-      videoError.hidden = false;
-      videoError.style.display = "block";
-    }
+    if (percentDisplay) percentDisplay.textContent = "—";
   });
 
   bgVideo.play().catch(function () {
