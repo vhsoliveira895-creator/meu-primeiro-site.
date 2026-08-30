@@ -1,93 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CellTech - Sua Loja de Celulares</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZA-TECH | Laboratorio de informatica em Fortaleza</title>
+  <meta name="description" content="ZA-TECH: reparo e manutencao de notebooks, desktops, GPU, placa-mae e fonte. Laboratorio em Fortaleza. WhatsApp (85) 99988-6993.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=lux2">
 </head>
 <body>
-    <div class="video-bg">
-        <video id="bgVideo" autoplay muted loop playsinline>
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-        </video>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="#topo">ZA<em>-</em>TECH</a>
+    <nav>
+      <a href="#atelier">Atelier</a>
+      <a href="#servicos">Servicos</a>
+      <a href="#manutencao">Manutencao</a>
+      <a href="#metodo">Metodo</a>
+      <a href="#atelier">Galeria</a>
+    </nav>
+    <a class="nav-zap" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Vim%20pelo%20site." target="_blank" rel="noopener noreferrer">Fale conosco</a>
+  </header>
+  <section class="hero" id="topo">
+    <div class="hero-bg" aria-hidden="true">
+      <img class="is-live" src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
+      <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
+      <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
+      <img src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
     </div>
-    <div class="overlay"></div>
-    <div class="video-progress"><div class="video-progress-bar" id="progressBar"></div></div>
-    <div class="video-percentage" id="videoPercent">0%</div>
-    <header>
-        <div class="logo">Cell<span>Tech</span></div>
-        <nav>
-            <ul>
-                <li><a href="#home">In&iacute;cio</a></li>
-                <li><a href="#products">Produtos</a></li>
-                <li><a href="#videos">V&iacute;deos</a></li>
-                <li><a href="#features">Servi&ccedil;os</a></li>
-                <li><a href="#contact">Contato</a></li>
-            </ul>
-        </nav>
+    <div class="hero-veil"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">Fortaleza ? Laboratorio de precisao</p>
+      <h1><span id="typeLine"></span><i class="caret"></i></h1>
+      <p class="lead">Reparo e manutencao de informatica no nivel da placa: GPU, placa-mae, fonte, notebook e desktop. Sem troca no escuro. Sem balcao generico.</p>
+      <div class="hero-row">
+        <a class="btn gold" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Preciso%20de%20diagnostico." target="_blank" rel="noopener noreferrer">WhatsApp direto</a>
+        <a class="btn line" href="#servicos">Ver linhas de servico</a>
+      </div>
+    </div>
+    <aside class="ticker" aria-live="polite"><span id="tickerMsg">Bancada ESD pronta.</span></aside>
+  </section>
+  <section class="marquee" aria-hidden="true">
+    <div>
+      <span>Notebook</span><span>Desktop</span><span>GPU</span><span>Placa-mae</span><span>Fonte</span><span>Limpeza termica</span><span>Upgrade</span><span>SO e backup</span>
+      <span>Notebook</span><span>Desktop</span><span>GPU</span><span>Placa-mae</span><span>Fonte</span><span>Limpeza termica</span><span>Upgrade</span><span>SO e backup</span>
+    </div>
+  </section>
+  <section class="split" id="atelier">
+    <figure>
+      <img src="https://images.pexels.com/photos/4792729/pexels-photo-4792729.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Tecnico trabalhando em notebook aberto">
+    </figure>
+    <div>
+      <p class="eyebrow">Atelier</p>
+      <h2>Informatica como oficio.</h2>
+      <p>A ZA-TECH trata maquina como peca de precisao: diagnostico escrito, retrabalho sob lupa e teste em carga. Fotos reais de bancada ? nao ilustracao gerada.</p>
+      <ul class="facts">
+        <li><strong>03</strong> especialidades de placa</li>
+        <li><strong>48h</strong> triagem tipica</li>
+        <li><strong>85</strong> WhatsApp Fortaleza</li>
+      </ul>
+    </div>
+  </section>
+  <section class="gallery">
+    <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Placa de circuito real">
+    <img src="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Hardware de computador">
+    <img src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Estacao de trabalho">
+    <img src="https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Sala de servidores">
+    <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Solda em componente">
+    <img src="https://images.pexels.com/photos/777001/pexels-photo-777001.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Setup de PC">
+  </section>
+  <section class="services" id="servicos">
+    <header class="block-head">
+      <p class="eyebrow">Servicos</p>
+      <h2>Do conector ao silicio.</h2>
     </header>
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Encontre o <span>celular perfeito</span> para voc&ecirc;</h1>
-            <p>Smartphones das melhores marcas com os melhores pre&ccedil;os do mercado</p>
-            <a href="#products" class="btn btn-primary">Ver Produtos</a>
-        </div>
-    </section>
-    <section class="products" id="products">
-        <div class="section-title">
-            <h2>Nossos Produtos</h2>
-            <p>Qualidade e pre&ccedil;o justo</p>
-        </div>
-        <div class="products-grid">
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>iPhone 15 Pro</h3><div class="price">R$ 7.999<span class="old-price">R$ 8.499</span></div><p class="description">256GB, Design em tit&acirc;nio, A17 Pro</p><button class="btn-buy" type="button">Comprar</button></div></div>
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>Samsung Galaxy S24 Ultra</h3><div class="price">R$ 6.499<span class="old-price">R$ 6.999</span></div><p class="description">512GB, 200MP, S Pen</p><button class="btn-buy" type="button">Comprar</button></div></div>
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>Google Pixel 8 Pro</h3><div class="price">R$ 4.999<span class="old-price">R$ 5.499</span></div><p class="description">128GB, Tensor G3, C&acirc;mera IA</p><button class="btn-buy" type="button">Comprar</button></div></div>
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>Motorola Edge 40 Pro</h3><div class="price">R$ 3.499<span class="old-price">R$ 3.999</span></div><p class="description">256GB, 165Hz, 125W carregamento</p><button class="btn-buy" type="button">Comprar</button></div></div>
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>Xiaomi 13 Pro</h3><div class="price">R$ 4.299<span class="old-price">R$ 4.799</span></div><p class="description">256GB, C&acirc;mera Leica, 120W</p><button class="btn-buy" type="button">Comprar</button></div></div>
-            <div class="product-card"><div class="product-image">Celular</div><div class="product-info"><h3>Samsung Galaxy A54</h3><div class="price">R$ 1.899<span class="old-price">R$ 2.199</span></div><p class="description">128GB, Super AMOLED, IP67</p><button class="btn-buy" type="button">Comprar</button></div></div>
-        </div>
-    </section>
-    <section class="videos" id="videos">
-        <div class="section-title">
-            <h2>Veja nossos produtos em a&ccedil;&atilde;o</h2>
-            <p>V&iacute;deos de demonstra&ccedil;&atilde;o (projeto de portf&oacute;lio)</p>
-        </div>
-        <div class="videos-grid">
-            <div class="video-card"><video controls><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4"></video><div class="video-info"><h3>S23 Ultra - Demonstra&ccedil;&atilde;o</h3></div></div>
-            <div class="video-card"><video controls><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4"></video><div class="video-info"><h3>Entrega r&aacute;pida</h3></div></div>
-            <div class="video-card"><video controls><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4"></video><div class="video-info"><h3>Tecnologia de ponta</h3></div></div>
-        </div>
-    </section>
-    <section class="features" id="features">
-        <div class="section-title">
-            <h2>Por que escolher a CellTech?</h2>
-            <p>Especialistas em smartphones</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">OK</div><h3>Garantia Total</h3><p>12 meses de garantia</p></div>
-            <div class="feature-card"><div class="feature-icon">24h</div><h3>Entrega r&aacute;pida</h3><p>Todo o Brasil</p></div>
-            <div class="feature-card"><div class="feature-icon">12x</div><h3>Parcelamento</h3><p>at&eacute; 12x sem juros</p></div>
-            <div class="feature-card"><div class="feature-icon">FAQ</div><h3>Suporte</h3><p>Equipe especializada</p></div>
-        </div>
-    </section>
-    <section class="contact" id="contact">
-        <h2>Fale conosco</h2>
-        <p>Tire suas d&uacute;vidas. Este formul&aacute;rio &eacute; de demonstra&ccedil;&atilde;o (sem backend).</p>
-        <form class="contact-form" id="contactForm">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <input type="tel" name="telefone" placeholder="Seu telefone">
-            <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
-            <p id="formStatus" hidden></p>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </section>
-    <footer>
-        <p>&copy; 2026 CellTech &mdash; projeto de portf&oacute;lio (HTML, CSS e JavaScript)</p>
-        <p style="margin-top: 0.5rem;">Fortaleza, Cear&aacute;</p>
-    </footer>
-    <script src="js/app.js"></script>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab on" data-tab="gpu">GPU</button>
+      <button type="button" class="tab" data-tab="mobo">Placa-mae</button>
+      <button type="button" class="tab" data-tab="psu">Fonte</button>
+      <button type="button" class="tab" data-tab="note">Notebook</button>
+    </div>
+    <article class="panel on" data-panel="gpu">
+      <img src="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Placa de video em bancada">
+      <div>
+        <h3>Placas de video</h3>
+        <p>Artefato, tela preta, queda em jogo, VRAM e VRM. Retrabalho termico e BGA quando o laudo fecha. Teste em carga antes de devolver.</p>
+      </div>
+    </article>
+    <article class="panel" data-panel="mobo" hidden>
+      <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Placa-mae em close">
+      <div>
+        <h3>Placas-mae</h3>
+        <p>Sem POST, curto, BIOS, liquido e trilhas. Medicao de rails. Trocamos o que falhou ? nao a placa inteira por palpite.</p>
+      </div>
+    </article>
+    <article class="panel" data-panel="psu" hidden>
+      <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Componentes de fonte e circuito">
+      <div>
+        <h3>Fontes</h3>
+        <p>Nao liga, desarma, ruido e protecao. Recap e MOSFET em bancada isolada. Validacao de estabilidade.</p>
+      </div>
+    </article>
+    <article class="panel" data-panel="note" hidden>
+      <img src="https://images.pexels.com/photos/4792729/pexels-photo-4792729.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Manutencao de notebook">
+      <div>
+        <h3>Notebook e desktop</h3>
+        <p>Nao liga, superaquecimento, tela, teclado, SSD e memoria. Manutencao preventiva e corretiva no mesmo laboratorio.</p>
+      </div>
+    </article>
+  </section>
+  <section class="maintain" id="manutencao">
+    <header class="block-head">
+      <p class="eyebrow">Manutencao</p>
+      <h2>Maquina viva pede rotina.</h2>
+    </header>
+    <div class="cards">
+      <article><h3>Termica</h3><p>Pasta, pads, po e coolers. Temperatura cai, ruido some, vida util sobe.</p></article>
+      <article><h3>Upgrade</h3><p>RAM, NVMe, fonte e GPU com checagem de fonte e slot. Sem peca incompativel.</p></article>
+      <article><h3>Sistema</h3><p>Backup, formatacao limpa, drivers e checagem de disco. Dados primeiro.</p></article>
+      <article><h3>Preventiva</h3><p>Contrato simples para quem nao pode parar: revisao periodica e prioridade na fila.</p></article>
+    </div>
+  </section>
+  <section class="method" id="metodo">
+    <ol>
+      <li><b>01</b> Triagem com sintoma e fotos</li>
+      <li><b>02</b> Diagnostico na bancada ESD</li>
+      <li><b>03</b> Aprovacao do teto de custo</li>
+      <li><b>04</b> Reparo e limpeza</li>
+      <li><b>05</b> Burn-in e entrega com laudo</li>
+    </ol>
+  </section>
+  <section class="cta">
+    <h2>A conversa comeca no WhatsApp.</h2>
+    <p>(85) 99988-6993 ? Fortaleza, CE</p>
+    <a class="btn gold" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Vim%20pelo%20site%20e%20quero%20falar%20sobre%20um%20reparo." target="_blank" rel="noopener noreferrer">Fale conosco agora</a>
+  </section>
+  <footer>
+    <strong>ZA-TECH</strong>
+    <span>Laboratorio de informatica. Projeto de portfolio.</span>
+    <span>2026 Fortaleza</span>
+  </footer>
+  <div class="float">
+    <a class="fab zap" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Vim%20pelo%20site." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">Zap</a>
+    <button class="fab up" id="toTop" type="button" aria-label="Voltar ao topo">Topo</button>
+  </div>
+  <div class="toast" id="toast" hidden></div>
+  <script src="js/app.js?v=lux2"></script>
 </body>
 </html>
