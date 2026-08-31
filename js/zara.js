@@ -158,7 +158,7 @@
     var log = el("zaraLog");
     if (!log) return null;
     var row = document.createElement("div");
-    row.className = "zara-row " + who;
+    row.className = "zara-row is-" + who;
     var msg = document.createElement("div");
     msg.className = "zara-msg";
     msg.textContent = text;

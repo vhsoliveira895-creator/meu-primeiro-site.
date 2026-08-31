@@ -428,12 +428,12 @@ body.zara-open .ticker {
   white-space: normal;
 }
 
-.zara-row.zara .zara-msg {
+.zara-row.is-zara .zara-msg {
   background: #1c1b18;
   border: 1px solid var(--line);
 }
 
-.zara-row.user .zara-msg {
+.zara-row.is-user .zara-msg {
   background: rgba(196, 165, 116, 0.16);
   border: 1px solid rgba(196, 165, 116, 0.35);
 }
