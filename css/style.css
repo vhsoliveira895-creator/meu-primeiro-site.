@@ -309,7 +309,9 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
   z-index: 90;
   font-family: Manrope, sans-serif;
   isolation: isolate;
-  max-width: min(22.5rem, calc(100vw - 1.6rem));
+  .zara {
+    max-width: min(24rem, calc(100vw - 1.4rem));
+  }
 }
 
 body.zara-open .toast,
@@ -358,8 +360,8 @@ body.zara-open .ticker {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: min(22.5rem, calc(100vw - 1.6rem));
-  max-height: min(34rem, calc(100dvh - 10.5rem));
+  max-width: min(24rem, calc(100vw - 1.4rem));
+  max-height: min(38rem, calc(100dvh - 8.5rem));
   background: #10100e;
   border: 1px solid var(--line);
   border-radius: 1.1rem;
@@ -402,34 +404,40 @@ body.zara-open .ticker {
 }
 
 .zara-log {
-  flex: 1;
-  min-height: 10rem;
+  flex: 1 1 auto;
+  min-height: 14rem;
+  min-width: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.9rem 0.85rem;
+  padding: 0.85rem 0.8rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  contain: paint;
+  gap: 0.65rem;
 }
 
 .zara-row {
   display: flex;
   width: 100%;
+  min-width: 0;
   flex: none;
 }
 
 .zara-row.zara { justify-content: flex-start; }
 
 .zara-row p {
-  max-width: 85%;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
   margin: 0;
-  padding: 0.65rem 0.8rem;
+  padding: 0.7rem 0.85rem;
   border-radius: 0.85rem;
-  font-size: 0.84rem;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   word-break: break-word;
+  hyphens: none;
 }
 
 .zara-typing {
@@ -452,18 +460,20 @@ body.zara-open .ticker {
 .zara-typing span:nth-child(3) { animation-delay: 0.4s; }
 
 .zara-row.zara p {
+  max-width: 100%;
   background: #1c1b18;
   border: 1px solid var(--line);
+}
+
+.zara-row.user p {
+  max-width: 100%;
+  background: rgba(196, 165, 116, 0.16);
+  border: 1px solid rgba(196, 165, 116, 0.35);
 }
 
 .zara-row.user {
   display: flex;
   justify-content: flex-end;
-}
-
-.zara-row.user p {
-  background: rgba(196, 165, 116, 0.16);
-  border: 1px solid rgba(196, 165, 116, 0.35);
 }
 
 .zara-form {
@@ -538,7 +548,8 @@ body.zara-open .ticker {
     max-width: none;
     max-height: calc(100dvh - 6.8rem - env(safe-area-inset-bottom, 0px));
   }
-  .zara-log { min-height: 8.5rem; }
+  .zara-log { min-height: 12rem; }
+  .zara-row p { font-size: 1rem; line-height: 1.55; }
   .zara-row p,
   .zara-head strong,
   .zara-typing { font-size: 0.9rem; }

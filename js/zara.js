@@ -1,19 +1,32 @@
 (function () {
   var DELAY_MS = 12000;
+  var MAX_WAIT = 20000;
   var MODELS = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-flash-latest"];
-  var WA = "https://wa.me/5585999886993?text=" + encodeURIComponent("Ola, ZA-TECH. Falei com a Zara no site e quero continuar o atendimento.");
   var HIST_KEY = "zaZaraHistorico";
   var SESSION_KEY = "zaZaraSessao";
 
   var state = {
     step: "askName",
     nome: "",
+    equipamento: "",
+    sintoma: "",
     messages: [],
     busy: false
   };
 
   function key() {
     return (window.ZA_GEMINI_API_KEY || "").trim();
+  }
+
+  function sleep(ms) {
+    return new Promise(function (ok) {
+      setTimeout(ok, ms);
+    });
+  }
+
+  function typingMs(text) {
+    var n = (text || "").length;
+    return Math.min(MAX_WAIT, Math.max(5000, 4500 + n * 48));
   }
 
   function saudacao() {
@@ -45,15 +58,40 @@
     localStorage.setItem(HIST_KEY, JSON.stringify(list.slice(-40)));
   }
 
+  function detectEquip(t) {
+    var s = (t || "").toLowerCase();
+    if (/note|laptop|netbook/.test(s)) return "notebook";
+    if (/\bgpu\b|placa de v[ií]deo|placa de video|rtx|gtx|radeon|vga/.test(s)) return "gpu";
+    if (/placa.?m[aã]e|motherboard|mobo/.test(s)) return "placa-mae";
+    if (/\bfonte\b|psu|power supply/.test(s)) return "fonte";
+    if (/desktop|gabinete|computador|tower|\bpc\b/.test(s)) return "desktop";
+    return "";
+  }
+
+  function labelEquip(id) {
+    return (
+      {
+        notebook: "notebook",
+        desktop: "desktop",
+        gpu: "placa de video",
+        "placa-mae": "placa-mae",
+        fonte: "fonte"
+      }[id] || ""
+    );
+  }
+
   function systemPrompt() {
     var hist = loadHist();
     var casos = hist.length
       ? hist
           .map(function (c, i) {
             return (
-              (i + 1) +
-              ". Cliente " +
-              (c.nome || "sem nome") +
+              i +
+              1 +
+              ". " +
+              (c.nome || "cliente") +
+              " / " +
+              (c.equipamento || "?") +
               ": " +
               (c.resumo || "")
             );
@@ -62,24 +100,45 @@
       : "Nenhum caso anterior neste aparelho.";
 
     return (
-      "Voce e Zara, atendente da ZA-TECH, laboratorio de informatica em Fortaleza. " +
-      "Seja cordial, educada e objetiva. Fale em portugues do Brasil, frases curtas. " +
-      "Trate o cliente pelo primeiro nome quando souber. " +
-      "Faca pre-diagnostico: notebook, desktop, GPU, placa-mae e fonte. " +
-      "Pergunte sintomas, quando comecou, se molhou, se caiu, se liga, se tem imagem, barulho, cheiro de queimado. " +
-      "Nao invente preco, prazo nem garantia. Nao diga que o conserto e certo. " +
-      "Deixe claro que e pre-diagnostico e o tecnico confirma na bancada. " +
-      "Quando fizer sentido, convide para o WhatsApp (85) 99988-6993. " +
-      "Use os casos anteriores so como referencia, sem expor dados de outros clientes.\n\n" +
-      "Cliente atual: " +
-      (state.nome || "ainda nao informado") +
-      ".\nCasos anteriores neste aparelho:\n" +
+      "Voce e Zara, atendente humana da ZA-TECH, laboratorio de informatica em Fortaleza (CE). " +
+      "Sempre cordial, educada e clara. Portugues do Brasil. Frases curtas. Nunca soe robotica. " +
+      "Trate pelo primeiro nome. Nao use gíria pesada. Nao invente preco, prazo, peca ou garantia. " +
+      "Deixe claro que isto e pre-diagnostico; o tecnico confirma na bancada ESD.\n\n" +
+      "ORDEM OBRIGATORIA DO ATENDIMENTO:\n" +
+      "1) Acolhimento educado (ja feito se o nome existir). Nao pule para o diagnostico sem educacao.\n" +
+      "2) Pergunte o que esta acontecendo com o equipamento (sintoma).\n" +
+      "3) Identifique o equipamento: notebook, desktop, GPU/placa de video, placa-mae ou fonte. " +
+      "Se nao estiver claro, pergunte. Nao faca pre-diagnostico antes de identificar.\n" +
+      "4) Depois de identificado, faca o pre-diagnostico: quando comecou, se liga, se tem imagem, " +
+      "superaquecimento, barulho, cheiro de queimado, queda, liquido, uso em jogo, POST, cabo.\n" +
+      "5) Resumo do pre-diagnostico em linguagem simples + convite ao WhatsApp (85) 99988-6993.\n\n" +
+      "SERVICOS ZA-TECH: reparo e manutencao de notebook, desktop, GPU, placa-mae e fonte; " +
+      "limpeza termica, upgrade, sistema/backup, preventiva. Fortaleza. " +
+      "Nao atenda assunto fora de informatica; redirecione com educacao.\n\n" +
+      "Cliente: " +
+      (state.nome || "ainda sem nome") +
+      ".\nEquipamento identificado: " +
+      (labelEquip(state.equipamento) || "ainda nao") +
+      ".\nSintoma ja relatado: " +
+      (state.sintoma || "ainda nao") +
+      ".\nEtapa atual: " +
+      state.step +
+      ".\nCasos anteriores neste aparelho (referencia interna, nao exponha):\n" +
       casos
     );
   }
 
   function el(id) {
     return document.getElementById(id);
+  }
+
+  function revealLast() {
+    var log = el("zaraLog");
+    if (!log) return;
+    var rows = log.querySelectorAll(".zara-row");
+    var last = rows[rows.length - 1];
+    if (last) last.scrollIntoView({ block: "nearest", inline: "nearest" });
+    else log.scrollTop = log.scrollHeight;
   }
 
   function bubble(who, text) {
@@ -93,25 +152,40 @@
     var typing = el("zaraTyping");
     if (typing) log.insertBefore(row, typing);
     else log.appendChild(row);
-    log.scrollTop = log.scrollHeight;
+    revealLast();
     return p;
   }
 
   function setTyping(on) {
     var typing = el("zaraTyping");
-    var log = el("zaraLog");
     if (!typing) return;
     typing.hidden = !on;
-    if (log) log.scrollTop = log.scrollHeight;
+    revealLast();
   }
 
-  function typeZara(text, done) {
+  async function speak(text) {
+    state.busy = true;
     setTyping(true);
-    setTimeout(function () {
-      setTyping(false);
-      bubble("zara", text);
-      if (done) done();
-    }, 420);
+    await sleep(typingMs(text));
+    setTyping(false);
+    bubble("zara", text);
+    state.messages.push({ role: "model", parts: [{ text: text }] });
+    state.busy = false;
+  }
+
+  async function speakAfterWork(work) {
+    state.busy = true;
+    setTyping(true);
+    var started = Date.now();
+    var reply = await work();
+    var target = typingMs(reply);
+    var left = Math.max(0, Math.min(MAX_WAIT, target) - (Date.now() - started));
+    if (left) await sleep(left);
+    setTyping(false);
+    bubble("zara", reply);
+    state.messages.push({ role: "model", parts: [{ text: reply }] });
+    state.busy = false;
+    return reply;
   }
 
   function setOpen(open) {
@@ -131,23 +205,10 @@
   }
 
   function greet() {
-    var s = saudacao();
     var text =
-      s +
-      ". Eu sou a Zara, da ZA-TECH. Prazer em te atender. Como posso te chamar?";
-    typeZara(text);
-    state.messages.push({ role: "model", parts: [{ text: text }] });
-  }
-
-  function looksYes(t) {
-    return (
-      /^(sim|quero|pode|vamos|ok|okay|desejo|claro|isso|positivo|uhum|bora)\b/i.test(t) ||
-      (/pre[-\s]?diagn/i.test(t) && !/nao|não/.test(t))
-    );
-  }
-
-  function looksNo(t) {
-    return /^(nao|não|agora nao|agora não|depois|negativo)\b/i.test(t);
+      saudacao() +
+      ". Eu sou a Zara, da ZA-TECH. Seja bem-vindo. Como posso te chamar?";
+    speak(text);
   }
 
   function firstName(raw) {
@@ -156,20 +217,56 @@
     return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
   }
 
-  async function askGemini(userText) {
-    var apiKey = key();
-    if (!apiKey) {
+  function localReply(userText) {
+    if (state.step === "askSymptom") {
+      state.sintoma = userText;
+      var eq = detectEquip(userText);
+      if (eq) {
+        state.equipamento = eq;
+        state.step = "diag";
+        return (
+          "Obrigada, " +
+          state.nome +
+          ". Identifiquei: " +
+          labelEquip(eq) +
+          ". Agora o pre-diagnostico: o aparelho liga? Aparece imagem? Comecou do nada ou depois de queda, liquido ou calor?"
+        );
+      }
+      state.step = "askEquip";
       return (
-        "Consigo seguir o pre-diagnostico por aqui. Me conte o aparelho (notebook, desktop, GPU, placa-mae ou fonte) e o que esta acontecendo. " +
-        "Se preferir falar com a bancada agora: WhatsApp (85) 99988-6993."
+        "Entendi, " +
+        state.nome +
+        ". Para eu identificar o equipamento: e notebook, desktop, placa de video, placa-mae ou fonte?"
       );
     }
+    if (state.step === "askEquip") {
+      var found = detectEquip(userText);
+      if (!found) {
+        return "Pode confirmar, por favor: notebook, desktop, placa de video, placa-mae ou fonte?";
+      }
+      state.equipamento = found;
+      state.step = "diag";
+      return (
+        "Perfeito. Equipamento: " +
+        labelEquip(found) +
+        ". Pre-diagnostico: ele liga? Tem imagem na tela? Tem barulho, cheiro de queimado ou superaquecimento?"
+      );
+    }
+    return (
+      "Obrigada pelas informacoes. Isso ja ajuda o pre-diagnostico, mas o tecnico confirma na bancada. " +
+      "Se quiser, seguimos no WhatsApp (85) 99988-6993. Pode mandar foto do equipamento e do sintoma."
+    );
+  }
+
+  async function askGemini(userText) {
+    var apiKey = key();
+    if (!apiKey) return localReply(userText);
 
     var contents = state.messages.concat([{ role: "user", parts: [{ text: userText }] }]);
     var body = JSON.stringify({
       system_instruction: { parts: [{ text: systemPrompt() }] },
       contents: contents,
-      generationConfig: { temperature: 0.55, maxOutputTokens: 420 }
+      generationConfig: { temperature: 0.45, maxOutputTokens: 380 }
     });
 
     var lastErr = "sem resposta";
@@ -208,11 +305,7 @@
         lastErr = e.message || String(e);
       }
     }
-    return (
-      "Tive um problema para falar com a IA agora (" +
-      lastErr +
-      "). Pode repetir em uma frase, ou chamar no WhatsApp (85) 99988-6993."
-    );
+    return localReply(userText) + " (A IA nao respondeu agora: " + lastErr + ".)";
   }
 
   async function onSend(raw) {
@@ -225,64 +318,42 @@
     if (state.step === "askName") {
       var nome = firstName(text);
       if (!nome) {
-        typeZara("Pode me passar so o primeiro nome, por favor?");
+        await speak("Pode me passar so o primeiro nome, por favor?");
         return;
       }
       state.nome = nome;
-      state.step = "askDiag";
-      typeZara(
+      state.step = "askSymptom";
+      await speak(
         "Prazer, " +
           nome +
-          ". Voce gostaria de fazer um pre-diagnostico agora?"
+          ". Seja bem-vindo a ZA-TECH. Antes de comecar o pre-atendimento, pode me contar o que esta acontecendo com o equipamento?"
       );
       return;
     }
 
-    if (state.step === "askDiag") {
-      if (looksNo(text)) {
-        state.step = "idle";
-        typeZara(
-          "Tudo bem, " +
-            state.nome +
-            ". Qualquer hora estamos aqui. Se preferir, a bancada atende no WhatsApp (85) 99988-6993."
-        );
-        saveHist({
-          nome: state.nome,
-          resumo: "Recusou pre-diagnostico no site.",
-          em: Date.now()
-        });
-        return;
+    if (state.step === "askSymptom") {
+      state.sintoma = text;
+      var maybe = detectEquip(text);
+      if (maybe) state.equipamento = maybe;
+      if (!state.equipamento) state.step = "askEquip";
+      else state.step = "diag";
+    } else if (state.step === "askEquip") {
+      var eq = detectEquip(text);
+      if (eq) {
+        state.equipamento = eq;
+        state.step = "diag";
       }
-      if (!looksYes(text) && text.length < 8) {
-        typeZara(
-          state.nome + ", voce deseja fazer o pre-diagnostico agora? Pode responder sim ou nao."
-        );
-        return;
-      }
-      state.step = "diag";
-      if (!looksYes(text)) {
-        state.messages.push({ role: "user", parts: [{ text: text }] });
-      } else {
-        state.messages.push({
-          role: "user",
-          parts: [{ text: "Sim, quero o pre-diagnostico." }]
-        });
-      }
-    } else {
-      state.messages.push({ role: "user", parts: [{ text: text }] });
     }
 
-    state.busy = true;
-    setTyping(true);
-    var reply = await askGemini(text);
-    state.messages.push({ role: "model", parts: [{ text: reply }] });
+    state.messages.push({ role: "user", parts: [{ text: text }] });
+    var reply = await speakAfterWork(function () {
+      return askGemini(text);
+    });
     saveHist({
       nome: state.nome,
-      resumo: text.slice(0, 180) + " | Zara: " + reply.slice(0, 180),
+      equipamento: state.equipamento,
+      resumo: text.slice(0, 160) + " | " + (reply || "").slice(0, 160),
       em: Date.now()
-    });
-    typeZara(reply, function () {
-      state.busy = false;
     });
   }
 
