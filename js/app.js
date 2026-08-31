@@ -87,6 +87,44 @@ function toasts() {
   setInterval(show, 9000);
 }
 
+function lazyClips() {
+  var clips = Array.from(document.querySelectorAll("video.lazy-clip"));
+  if (!clips.length) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function arm(vid) {
+    if (vid.dataset.ready) return;
+    var src = vid.getAttribute("data-src");
+    if (!src) return;
+    vid.src = src;
+    vid.dataset.ready = "1";
+    vid.load();
+  }
+  function play(vid) {
+    arm(vid);
+    vid.muted = true;
+    var p = vid.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (reduce) {
+    clips.forEach(function (vid) {
+      var poster = vid.getAttribute("poster");
+      if (poster && vid.parentNode) vid.parentNode.style.backgroundImage = "url(" + poster + ")";
+    });
+    return;
+  }
+  if (!("IntersectionObserver" in window)) {
+    clips.forEach(play);
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting && en.intersectionRatio >= 0.28) play(en.target);
+      else en.target.pause();
+    });
+  }, { threshold: [0, 0.28, 0.6], rootMargin: "120px 0px" });
+  clips.forEach(function (vid) { io.observe(vid); });
+}
+
 function tabs() {
   const buttons = Array.from(document.querySelectorAll(".tab"));
   const panels = Array.from(document.querySelectorAll(".panel"));
@@ -116,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ticker();
   toasts();
   tabs();
+  lazyClips();
   document.querySelectorAll("[data-open-zara]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       if (typeof window.ZA_ABRIR_ZARA === "function") window.ZA_ABRIR_ZARA();

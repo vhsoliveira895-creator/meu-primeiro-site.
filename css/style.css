@@ -583,6 +583,28 @@ button.btn { font-family: inherit; }
 }
 .cards p { color: var(--mute); margin-top: 0.5rem; font-size: 0.92rem; }
 
+.cards .maintain-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.maintain-media {
+  position: relative;
+  height: 158px;
+  background: #0c0c0a;
+}
+.maintain-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.maintain-copy {
+  padding: 1.15rem 1.2rem 1.3rem;
+  flex: 1;
+}
+
 .method { padding: 3rem 5% 5rem; }
 .method ol {
   list-style: none;
@@ -935,6 +957,11 @@ body.zara-open .ticker {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bg img { animation: none; }
+  .lazy-clip { display: none; }
+  .maintain-media {
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 @media (max-width: 980px) {
@@ -947,6 +974,7 @@ body.zara-open .ticker {
   .hero-copy { max-width: 100%; padding-right: 0.5rem; }
 }
 @media (max-width: 640px) {
+  .maintain-media { height: 180px; }
   .split, .panel.on, .cards, .method ol, .gallery, .presence, .presence-shots, .bench-grid { grid-template-columns: 1fr; }
   .loop-band { height: 220px; }
   .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }
