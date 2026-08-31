@@ -592,6 +592,35 @@ button.btn { font-family: inherit; }
 }
 .method b { display: block; color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: 1.3rem; margin-bottom: 0.4rem; }
 
+.ig-band {
+  padding: 2rem 5% 4rem;
+}
+.ig-card {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.3rem 1.5rem;
+  background: rgba(12, 11, 9, 0.88);
+}
+.ig-card:hover { border-color: rgba(196, 165, 116, 0.55); }
+.ig-avatar {
+  width: 112px !important;
+  height: 112px !important;
+  max-width: 112px !important;
+  max-height: 112px !important;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.ig-card h2 {
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  letter-spacing: 0.02em;
+}
+.ig-card p { color: var(--mute); margin-top: 0.35rem; }
+
 .cta {
   position: relative;
   text-align: center;
@@ -887,6 +916,7 @@ body.zara-open .ticker {
   .split, .panel.on, .cards, .method ol, .gallery, .presence, .presence-shots, .bench-grid { grid-template-columns: 1fr; }
   .loop-band { height: 220px; }
   .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }
+  .ig-card { flex-direction: column; text-align: center; padding: 1.5rem 1.2rem; }
   h1 { min-height: 0; font-size: clamp(1.55rem, 8.5vw, 2.2rem); }
   .lead { font-size: 0.95rem; }
   .nav-zap, .nav-ig { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
