@@ -159,14 +159,15 @@
     if (!log) return null;
     var row = document.createElement("div");
     row.className = "zara-row " + who;
-    var p = document.createElement("p");
-    p.textContent = text;
-    row.appendChild(p);
+    var msg = document.createElement("div");
+    msg.className = "zara-msg";
+    msg.textContent = text;
+    row.appendChild(msg);
     var typing = el("zaraTyping");
     if (typing) log.insertBefore(row, typing);
     else log.appendChild(row);
     revealLast();
-    return p;
+    return msg;
   }
 
   function setTyping(on) {

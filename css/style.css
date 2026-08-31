@@ -307,11 +307,10 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
   right: 1.2rem;
   bottom: calc(6.4rem + env(safe-area-inset-bottom, 0px));
   z-index: 90;
-  width: min(22rem, calc(100vw - 1.6rem));
+  width: min(20.5rem, calc(100vw - 1.6rem));
   max-width: calc(100vw - 1.6rem);
+  overflow: hidden;
   font-family: Manrope, sans-serif;
-  isolation: isolate;
-  box-sizing: border-box;
 }
 
 body.zara-open .toast,
@@ -340,15 +339,13 @@ body.zara-open .ticker {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-.zara-launch img,
-.zara-face {
-  width: 44px;
-  height: 44px;
-  max-width: 44px;
-  max-height: 44px;
-  border-radius: 50%;
+.zara img {
+  width: 40px !important;
+  height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
   object-fit: cover;
-  flex: none;
+  border-radius: 50%;
 }
 
 .zara-launch span {
@@ -359,18 +356,15 @@ body.zara-open .ticker {
 }
 
 .zara-win {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) 58px;
   width: 100%;
-  max-width: 100%;
-  height: min(28rem, calc(100dvh - 8rem));
+  height: 380px;
   max-height: calc(100dvh - 8rem);
+  overflow: hidden;
   background: #10100e;
   border: 1px solid var(--line);
   border-radius: 1.1rem;
-  overflow: hidden;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
-  animation: in 0.45s ease;
 }
 
 .zara-head {
@@ -407,40 +401,41 @@ body.zara-open .ticker {
 }
 
 .zara-log {
-  flex: 1 1 auto;
-  min-height: 0;
   min-width: 0;
+  min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.75rem 0.7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
+  padding: 0.7rem;
 }
 
 .zara-row {
-  display: flex;
+  display: block;
   width: 100%;
   max-width: 100%;
-  min-width: 0;
-  flex: none;
+  margin: 0 0 0.5rem;
 }
 
-.zara-row.zara { justify-content: flex-start; }
-
-.zara-row p {
+.zara-msg {
+  display: block;
   box-sizing: border-box;
-  min-width: 0;
-  width: auto;
   max-width: 100%;
-  margin: 0;
-  padding: 0.65rem 0.75rem;
-  border-radius: 0.85rem;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  white-space: normal;
-  overflow-wrap: break-word;
+  padding: 0.6rem 0.7rem;
+  border-radius: 0.8rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
   word-break: break-word;
+  white-space: normal;
+}
+
+.zara-row.zara .zara-msg {
+  background: #1c1b18;
+  border: 1px solid var(--line);
+}
+
+.zara-row.user .zara-msg {
+  background: rgba(196, 165, 116, 0.16);
+  border: 1px solid rgba(196, 165, 116, 0.35);
 }
 
 .zara-typing {
@@ -456,50 +451,27 @@ body.zara-open .ticker {
 
 .zara-typing[hidden] { display: none !important; }
 
-.zara-typing span {
-  animation: blink 1s steps(1) infinite;
-}
-.zara-typing span:nth-child(2) { animation-delay: 0.2s; }
-.zara-typing span:nth-child(3) { animation-delay: 0.4s; }
-
-.zara-row.zara p {
-  max-width: 100%;
-  background: #1c1b18;
-  border: 1px solid var(--line);
-}
-
-.zara-row.user p {
-  max-width: 100%;
-  background: rgba(196, 165, 116, 0.16);
-  border: 1px solid rgba(196, 165, 116, 0.35);
-}
-
-.zara-row.user {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .zara-form {
   display: flex;
+  align-items: center;
   gap: 0.4rem;
-  padding: 0.65rem 0.7rem 0.75rem;
+  padding: 0.5rem 0.6rem;
   border-top: 1px solid var(--line);
   background: #10100e;
-  flex: 0 0 auto;
-  position: relative;
-  z-index: 3;
+  min-width: 0;
 }
 
 .zara-form input {
   flex: 1;
   min-width: 0;
-  padding: 0.7rem 0.8rem;
+  width: 0;
+  padding: 0.55rem 0.7rem;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: #0b0b0a;
   color: var(--ink);
   font: inherit;
-  font-size: 0.84rem;
+  font-size: 16px;
 }
 
 .zara-form button {
@@ -549,14 +521,8 @@ body.zara-open .ticker {
   }
   .zara-win {
     width: 100%;
-    height: min(70dvh, calc(100dvh - 7.2rem));
-    max-height: calc(100dvh - 7.2rem);
+    height: min(380px, calc(100dvh - 7.2rem));
   }
-  .zara-log { min-height: 0; }
-  .zara-row p { font-size: 1rem; line-height: 1.55; }
-  .zara-row p,
-  .zara-head strong,
-  .zara-typing { font-size: 0.9rem; }
   .zara-form input,
   .zara-form button { font-size: 16px; }
 }
