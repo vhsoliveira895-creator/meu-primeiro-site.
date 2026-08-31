@@ -108,14 +108,16 @@
 
     return (
       "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
-      "Formalidade SO na apresentacao (bom dia/tarde/noite e pedir o nome). Depois fale como tecnico de sistemas: direto, sem 'obrigada' em toda frase, sem repetir nome invalido (Boa, Bom, Ola).\n" +
+      "Formalidade SO na apresentacao (bom dia/tarde/noite e pedir o nome). Pode dizer Prazer se o nome for um nome de pessoa.\n" +
+      "NUNCA use como nome: Boa, Bom, Noite, Tarde, Dia, Ola, Oi. Isso e cumprimento, nao nome.\n" +
+      "Depois fale como tecnico: direto, sem obrigada em toda frase.\n" +
       "ROTEIRO: 1) nome 2) sintoma 3) tipo de maquina 4) se desktop/notebook, peca CONFIGURACAO: " +
       "o sr(a) consegue informar a configuracao? Ex.: memoria 8 GB ou 16 GB, SSD ou HD, processador Intel i5 ou Ryzen 5. " +
       "5) liga? imagem? Windows inicia (lento, trava, tela azul)? " +
       "6) hardware -> laboratorio WhatsApp (85) 99988-6993. sistema -> backup; lab formata se quiser.\n" +
-      "Nao escreva 'Obrigada, Boa' nem 'Equipamento: desktop. Vamos ao pre-diagnostico'.\n\n" +
+      "Nao escreva 'Obrigada, Boa' nem trate o cliente por Boa.\n\n" +
       "Cliente: " +
-      (state.nome || "sem nome") +
+      (nomeValido(state.nome) ? state.nome : "sem nome") +
       ".\nEquipamento: " +
       (labelEquip(state.equipamento) || "?") +
       ".\nConfig: " +
@@ -162,7 +164,50 @@
     revealLast();
   }
 
+  function palavraNorm(w) {
+    return String(w || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function cumprimentoLixo(w) {
+    return /^(boa|bom|noite|tarde|dia|ola|oi|eae|eai|hey|obrigado|obrigada)$/.test(
+      palavraNorm(w)
+    );
+  }
+
+  function nomeLixo(w) {
+    return (
+      cumprimentoLixo(w) ||
+      /^(valeu|sim|nao|n|desktop|notebook|pc|teste|zara|sr|sra|senhor|senhora)$/.test(
+        palavraNorm(w)
+      )
+    );
+  }
+
+  function nomeValido(w) {
+    var s = String(w || "").trim();
+    return s.length >= 2 && !nomeLixo(s);
+  }
+
+  function limpaFala(text) {
+    var t = String(text || "");
+    t = t.replace(
+      /\b(prazer|obrigad[oa]|ol[aá]|oi|beleza|ok)[,:]?\s+([A-Za-zÀ-ÿ]{2,20})\.?/gi,
+      function (_, abertura, vocativo) {
+        if (cumprimentoLixo(vocativo)) {
+          return abertura.charAt(0).toUpperCase() + abertura.slice(1).toLowerCase();
+        }
+        return abertura + ", " + vocativo;
+      }
+    );
+    t = t.replace(/\s+\./g, ".").replace(/\s{2,}/g, " ").trim();
+    return t;
+  }
+
   async function speak(text) {
+    text = limpaFala(text);
     state.busy = true;
     setTyping(true);
     await sleep(typingMs(text));
@@ -176,7 +221,7 @@
     state.busy = true;
     setTyping(true);
     var started = Date.now();
-    var reply = await work();
+    var reply = limpaFala(await work());
     var target = typingMs(reply);
     var left = Math.max(0, Math.min(MAX_WAIT, target) - (Date.now() - started));
     if (left) await sleep(left);
@@ -252,19 +297,21 @@
   }
 
   function firstName(raw) {
-    var t = (raw || "")
+    var t = String(raw || "")
       .replace(/^(me\s+chamo|meu\s+nome\s+[eéè]|eu\s+sou)\s+/i, "")
+      .replace(/^(boa|bom)\s+(dia|tarde|noite)\b[,!.]?\s*/gi, "")
+      .replace(/^(ol[aá]|oi|eae|eai|hey)\b[,!.]?\s*/gi, "")
+      .replace(/[^A-Za-zÀ-ÿ\s'-]/g, " ")
       .trim();
-    var clean = t.replace(/[^A-Za-zÀ-ÿ\s'-]/g, " ").trim().split(/\s+/)[0] || "";
-    if (clean.length < 2) return "";
-    if (
-      /^(boa|bom|noite|tarde|dia|ola|olá|oi|eae|eai|obrigad[oa]|valeu|sim|nao|não|desktop|notebook|pc|teste|zara|sr|sra|senhor|senhora)$/i.test(
-        clean
-      )
-    ) {
-      return "";
+    var words = t.split(/\s+/).filter(Boolean);
+    var i;
+    var w;
+    for (i = 0; i < words.length; i++) {
+      w = words[i];
+      if (w.length < 2 || nomeLixo(w)) continue;
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
     }
-    return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
+    return "";
   }
 
   function perguntaConfig() {
@@ -394,7 +441,16 @@
 
   async function askGemini(userText) {
     var apiKey = key();
-    if (!apiKey) return localReply(userText);
+    var roteiro = {
+      askSymptom: 1,
+      askEquip: 1,
+      askConfig: 1,
+      askPower: 1,
+      askImage: 1,
+      askSystem: 1,
+      lab: 1
+    };
+    if (!apiKey || roteiro[state.step]) return localReply(userText);
 
     var contents = state.messages.concat([{ role: "user", parts: [{ text: userText }] }]);
     var body = JSON.stringify({
@@ -457,7 +513,7 @@
       }
       state.nome = nome;
       state.step = "askSymptom";
-      await speak("Beleza. O que esta acontecendo com a maquina?");
+      await speak("Prazer, " + nome + ". O que esta acontecendo com a maquina?");
       return;
     }
 
@@ -469,7 +525,7 @@
       return askGemini(text);
     });
     saveHist({
-      nome: state.nome,
+      nome: nomeValido(state.nome) ? state.nome : "",
       equipamento: state.equipamento,
       classe: state.classe,
       resumo: text.slice(0, 160) + " | " + (reply || "").slice(0, 160),
