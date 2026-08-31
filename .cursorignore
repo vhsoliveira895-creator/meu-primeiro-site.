@@ -1,0 +1,7 @@
+# Keep Cursor indexing this small static site, not generated junk
+*.log
+*.tmp
+*.swp
+.DS_Store
+node_modules/
+dist/

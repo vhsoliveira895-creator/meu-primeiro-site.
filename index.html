@@ -1,4 +1,4 @@
-]633;E;;a28de87e-3d14-4c6a-b40c-8275e81a0015]633;C<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -10,9 +10,8 @@
 <body>
     <!-- Video Background -->
     <div class="video-bg">
-        <video id="bgVideo" autoplay muted loop playsinline crossorigin="anonymous">
-            <source src="http://localhost:8080/video.mp4" type="video/mp4">
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        <video id="bgVideo" autoplay muted loop playsinline preload="metadata" crossorigin="anonymous">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
         </video>
     </div>
     <div class="overlay"></div>
@@ -120,26 +119,23 @@
         </div>
         <div class="videos-grid">
             <div class="video-card">
-                <video controls crossorigin="anonymous">
-                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                <video controls preload="none" playsinline crossorigin="anonymous">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
                 </video>
                 <div class="video-info">
                     <h3>S23 Ultra - Demonstração</h3>
                 </div>
             </div>
             <div class="video-card">
-                <video controls crossorigin="anonymous">
-                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
-                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                <video controls preload="none" playsinline crossorigin="anonymous">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
                 </video>
                 <div class="video-info">
                     <h3>Entrega Rápida</h3>
                 </div>
             </div>
             <div class="video-card">
-                <video controls crossorigin="anonymous">
-                    <source src="http://localhost:8080/video.mp4" type="video/mp4">
+                <video controls preload="none" playsinline crossorigin="anonymous">
                     <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
                 </video>
                 <div class="video-info">

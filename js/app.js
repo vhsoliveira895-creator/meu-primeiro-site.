@@ -1,29 +1,51 @@
-        // Video background progress
-        const bgVideo = document.getElementById('bgVideo');
-        const progressBar = document.getElementById('progressBar');
-        const percentDisplay = document.getElementById('videoPercent');
-        const videoError = document.getElementById('videoError');
+(function () {
+    const bgVideo = document.getElementById('bgVideo');
+    const progressBar = document.getElementById('progressBar');
+    const percentDisplay = document.getElementById('videoPercent');
+    const videoError = document.getElementById('videoError');
+    const contactForm = document.querySelector('.contact-form');
 
-        bgVideo.addEventListener('loadedmetadata', function() {
-            console.log('✓ Video carregou! Duração:', bgVideo.duration);
+    function setErrorVisible(visible, message) {
+        if (!videoError) return;
+        videoError.style.display = visible ? 'block' : 'none';
+        if (message) videoError.textContent = message;
+    }
+
+    if (bgVideo && progressBar && percentDisplay) {
+        bgVideo.addEventListener('loadedmetadata', function () {
             percentDisplay.textContent = 'Video OK';
+            setErrorVisible(false);
         });
 
-        bgVideo.addEventListener('timeupdate', function() {
-            const percent = (bgVideo.currentTime / bgVideo.duration) * 100;
+        bgVideo.addEventListener('timeupdate', function () {
+            const duration = bgVideo.duration;
+            if (!Number.isFinite(duration) || duration <= 0) return;
+            const percent = (bgVideo.currentTime / duration) * 100;
             progressBar.style.width = percent + '%';
             percentDisplay.textContent = Math.round(percent) + '%';
         });
 
-        bgVideo.addEventListener('error', function(e) {
-            console.error('✗ Erro no vídeo:', bgVideo.error);
-            videoError.style.display = 'block';
-            videoError.textContent = 'Video não carregou - usando fallback';
+        bgVideo.addEventListener('error', function () {
+            setErrorVisible(true, 'Video não carregou — usando o fundo estático');
+            percentDisplay.textContent = '—';
         });
 
-        // Force play
-        bgVideo.play().then(() => {
-            console.log('✓ Video tocando');
-        }).catch(e => {
-            console.log('✗ Auto-play bloqueado:', e.message);
+        const playPromise = bgVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {
+                percentDisplay.textContent = 'Toque para reproduzir';
+            });
+        }
+    }
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const button = contactForm.querySelector('button[type="submit"]');
+            if (button) {
+                button.textContent = 'Mensagem registrada';
+                button.disabled = true;
+            }
         });
+    }
+})();

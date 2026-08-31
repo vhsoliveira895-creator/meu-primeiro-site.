@@ -31,7 +31,10 @@
             height: 100vh;
             z-index: -2;
             overflow: hidden;
-            background: #000;
+            background:
+                radial-gradient(circle at 20% 20%, #123d34 0%, transparent 45%),
+                radial-gradient(circle at 80% 10%, #0b2a3a 0%, transparent 40%),
+                linear-gradient(160deg, #071014 0%, #0e2a24 50%, #061018 100%);
         }
 
         .video-bg video {
