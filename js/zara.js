@@ -131,6 +131,7 @@
     win.hidden = !open;
     launch.hidden = open;
     if (open) {
+      if (state.step === "askName" && !el("zaraLog").querySelector(".zara-row")) greet();
       var input = el("zaraInput");
       if (input) input.focus();
     }
