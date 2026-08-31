@@ -303,6 +303,11 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
   font-family: Manrope, sans-serif;
 }
 
+.zara-launch[hidden],
+.zara-win[hidden] {
+  display: none !important;
+}
+
 .zara-launch {
   display: flex;
   align-items: center;

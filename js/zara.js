@@ -306,10 +306,16 @@
     }, DELAY_MS);
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function start() {
     bind();
     el("zaraLaunch").hidden = true;
     el("zaraWin").hidden = true;
     openLater();
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
 })();
