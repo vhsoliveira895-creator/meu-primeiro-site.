@@ -50,10 +50,22 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: "Cormorant Garamond", serif;
   font-size: 1.45rem;
   letter-spacing: 0.18em;
   font-weight: 600;
+}
+.brand-mark {
+  width: 42px !important;
+  height: 42px !important;
+  max-width: 42px !important;
+  max-height: 42px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
 }
 .brand em { color: var(--gold); font-style: normal; }
 
@@ -61,7 +73,8 @@ a { color: inherit; text-decoration: none; }
 .nav nav a { color: var(--mute); font-size: 0.82rem; letter-spacing: 0.04em; }
 .nav nav a:hover { color: var(--ink); }
 
-.nav-zap {
+.nav-cta { display: flex; align-items: center; gap: 0.55rem; flex-shrink: 0; }
+.nav-zap, .nav-ig {
   border: 1px solid var(--gold);
   color: var(--gold);
   padding: 0.5rem 1rem;
@@ -70,6 +83,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.nav-ig { border-color: var(--line); color: var(--ink); }
 
 .hero {
   position: relative;
@@ -80,13 +94,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-bg { position: absolute; inset: 0; }
-.hero-bg video {
+.hero-bg img {
   position: absolute; inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1;
-  transform: none;
+  object-position: center 35%;
 }
 
 .hero-veil {
@@ -194,7 +207,7 @@ button.btn { font-family: inherit; }
   letter-spacing: 0.02em;
 }
 
-.hero-scan { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero .hero-scan { opacity: 0.12; mix-blend-mode: normal; }
 
 .bench {
   padding: 4.5rem 5% 3rem;
@@ -347,7 +360,7 @@ button.btn { font-family: inherit; }
 }
 .presence-copy p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
-.hero-scan { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero .hero-scan { opacity: 0.12; mix-blend-mode: normal; }
 
 .bench {
   padding: 4.5rem 5% 3rem;
@@ -601,6 +614,7 @@ footer {
   font-size: 0.8rem;
   background: rgba(12, 12, 11, 0.92);
 }
+footer a { color: var(--gold); }
 footer strong { color: var(--ink); letter-spacing: 0.16em; }
 
 .float {
@@ -870,7 +884,7 @@ body.zara-open .ticker {
   .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }
   h1 { min-height: 0; font-size: clamp(1.55rem, 8.5vw, 2.2rem); }
   .lead { font-size: 0.95rem; }
-  .nav-zap { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
+  .nav-zap, .nav-ig { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
   .brand { font-size: 1.15rem; letter-spacing: 0.12em; }
   .toast { max-width: calc(100vw - 5.5rem); font-size: 0.8rem; }
   .zara {
