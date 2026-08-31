@@ -107,21 +107,11 @@
 
   function typeZara(text, done) {
     setTyping(true);
-    var p = bubble("zara", "");
-    var i = 0;
-    function tick() {
-      i += 1;
-      if (p) p.textContent = text.slice(0, i);
-      var log = el("zaraLog");
-      if (log) log.scrollTop = log.scrollHeight;
-      if (i < text.length) {
-        setTimeout(tick, i < 12 ? 28 : 16);
-        return;
-      }
+    setTimeout(function () {
       setTyping(false);
+      bubble("zara", text);
       if (done) done();
-    }
-    tick();
+    }, 420);
   }
 
   function setOpen(open) {
@@ -130,6 +120,9 @@
     if (!win || !launch) return;
     win.hidden = !open;
     launch.hidden = open;
+    document.body.classList.toggle("zara-open", open);
+    var toast = el("toast");
+    if (open && toast) toast.hidden = true;
     if (open) {
       if (state.step === "askName" && !el("zaraLog").querySelector(".zara-row")) greet();
       var input = el("zaraInput");

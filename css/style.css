@@ -299,8 +299,15 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
   position: fixed;
   right: 1.2rem;
   bottom: 8.2rem;
-  z-index: 70;
+  z-index: 90;
   font-family: Manrope, sans-serif;
+  isolation: isolate;
+}
+
+body.zara-open .toast,
+body.zara-open .ticker {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .zara-launch[hidden],
@@ -392,15 +399,26 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+  contain: paint;
 }
 
+.zara-row {
+  display: flex;
+  width: 100%;
+  flex: none;
+}
+
+.zara-row.zara { justify-content: flex-start; }
+
 .zara-row p {
-  max-width: 88%;
+  max-width: 85%;
+  margin: 0;
   padding: 0.65rem 0.8rem;
   border-radius: 0.85rem;
   font-size: 0.84rem;
   line-height: 1.45;
   overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .zara-typing {

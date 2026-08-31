@@ -25,6 +25,10 @@ function typewriter(el) {
   let i = 0;
   let del = false;
   function tick() {
+    if (document.body.classList.contains("zara-open")) {
+      setTimeout(tick, 400);
+      return;
+    }
     const t = PHRASES[p];
     if (!del) {
       i += 1;
@@ -80,6 +84,7 @@ function toasts() {
   if (!box) return;
   let n = 0;
   function show() {
+    if (document.body.classList.contains("zara-open")) return;
     box.hidden = false;
     box.textContent = TOASTS[n];
     setTimeout(function () {
