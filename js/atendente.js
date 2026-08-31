@@ -110,7 +110,7 @@
       "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
       "Apos a apresentacao, diga so 'Prazer' (sem nome) e pergunte: em que posso lhe ajudar?\n" +
       "Nao liste diagnostico nem orcamento na abertura. Nao use sr, sra, senhor, senhora.\n" +
-      "Nao assuma que e conserto de maquina. Extraia o motivo: diagnostico, orcamento, peca, upgrade ou informacao do laboratorio.\n" +
+      "Nao assuma conserto de maquina. Pergunte em que pode ajudar e extraia o motivo na conversa.\n" +
       "So depois do motivo, se for reparo, siga o roteiro tecnico. Nunca fale o nome do cliente.\n" +
       "ROTEIRO (se for reparo): sintoma, tipo de equipamento, se desktop/notebook peca CONFIGURACAO " +
       "(memoria 8/16 GB, SSD ou HD, Intel i5 / Ryzen 5), liga?, imagem?, Windows.\n" +
@@ -197,7 +197,13 @@
         return abertura.charAt(0).toUpperCase() + abertura.slice(1).toLowerCase();
       }
     );
+    t = t.replace(
+      /Pode me dizer[, ]*(por gentileza, )?o que (voce|o\(a\) sr\(a\)) busca na ZA-TECH\??/gi,
+      "Em que posso lhe ajudar?"
+    );
+    t = t.replace(/\s*Diagnostico, orcamento, peca ou outra orientacao\.?/gi, "");
     t = t.replace(/\s+\./g, ".").replace(/\s{2,}/g, " ").trim();
+    if (!t) t = "Prazer. Em que posso lhe ajudar?";
     return t;
   }
 
@@ -346,7 +352,7 @@
   }
 
   function perguntaMotivo() {
-    return "Prazer. Em que posso lhe ajudar?";
+    return window.ZA_FRASE_MOTIVO || "Prazer. Em que posso lhe ajudar?";
   }
 
   function perguntaConfig() {
