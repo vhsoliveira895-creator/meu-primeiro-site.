@@ -108,17 +108,14 @@
 
     return (
       "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
-      "Formalidade SO na apresentacao (bom dia/tarde/noite e pedir o nome). Pode dizer Prazer se o nome for um nome de pessoa.\n" +
-      "NUNCA use como nome: Boa, Bom, Noite, Tarde, Dia, Ola, Oi. Isso e cumprimento, nao nome.\n" +
+      "Formalidade SO na apresentacao (bom dia/tarde/noite). Depois diga so 'Prazer' e siga o atendimento. NUNCA fale o nome do cliente.\n" +
       "Depois fale como tecnico: direto, sem obrigada em toda frase.\n" +
       "ROTEIRO: 1) nome 2) sintoma 3) tipo de maquina 4) se desktop/notebook, peca CONFIGURACAO: " +
       "o sr(a) consegue informar a configuracao? Ex.: memoria 8 GB ou 16 GB, SSD ou HD, processador Intel i5 ou Ryzen 5. " +
       "5) liga? imagem? Windows inicia (lento, trava, tela azul)? " +
       "6) hardware -> laboratorio WhatsApp (85) 99988-6993. sistema -> backup; lab formata se quiser.\n" +
-      "Nao escreva 'Obrigada, Boa' nem trate o cliente por Boa.\n\n" +
-      "Cliente: " +
-      (nomeValido(state.nome) ? state.nome : "sem nome") +
-      ".\nEquipamento: " +
+      "Nunca trate o cliente pelo nome. Nao escreva Prazer, Boa nem Obrigada, Boa.\n\n" +
+      "Cliente: em atendimento.\nEquipamento: " +
       (labelEquip(state.equipamento) || "?") +
       ".\nConfig: " +
       (state.config || "?") +
@@ -194,12 +191,9 @@
   function limpaFala(text) {
     var t = String(text || "");
     t = t.replace(
-      /\b(prazer|obrigad[oa]|ol[aá]|oi|beleza|ok)[,:]?\s+([A-Za-zÀ-ÿ]{2,20})\.?/gi,
-      function (_, abertura, vocativo) {
-        if (cumprimentoLixo(vocativo)) {
-          return abertura.charAt(0).toUpperCase() + abertura.slice(1).toLowerCase();
-        }
-        return abertura + ", " + vocativo;
+      /\b(prazer|obrigad[oa]|ol[aá]|oi|beleza)[,:]?\s+[A-Za-zÀ-ÿ]{2,20}\.?/gi,
+      function (_, abertura) {
+        return abertura.charAt(0).toUpperCase() + abertura.slice(1).toLowerCase();
       }
     );
     t = t.replace(/\s+\./g, ".").replace(/\s{2,}/g, " ").trim();
@@ -531,13 +525,9 @@
 
     if (state.step === "askName") {
       var nome = firstName(text);
-      if (!nome) {
-        await speak("Prazer. Como posso te chamar?");
-        return;
-      }
-      state.nome = nome;
+      if (nome) state.nome = nome;
       state.step = "askSymptom";
-      await speak("Prazer, " + nome + ". O que esta acontecendo com a maquina?");
+      await speak("Prazer. O que esta acontecendo com a maquina?");
       return;
     }
 
