@@ -84,14 +84,44 @@
 
   function bubble(who, text) {
     var log = el("zaraLog");
-    if (!log) return;
+    if (!log) return null;
     var row = document.createElement("div");
     row.className = "zara-row " + who;
     var p = document.createElement("p");
     p.textContent = text;
     row.appendChild(p);
-    log.appendChild(row);
+    var typing = el("zaraTyping");
+    if (typing) log.insertBefore(row, typing);
+    else log.appendChild(row);
     log.scrollTop = log.scrollHeight;
+    return p;
+  }
+
+  function setTyping(on) {
+    var typing = el("zaraTyping");
+    var log = el("zaraLog");
+    if (!typing) return;
+    typing.hidden = !on;
+    if (log) log.scrollTop = log.scrollHeight;
+  }
+
+  function typeZara(text, done) {
+    setTyping(true);
+    var p = bubble("zara", "");
+    var i = 0;
+    function tick() {
+      i += 1;
+      if (p) p.textContent = text.slice(0, i);
+      var log = el("zaraLog");
+      if (log) log.scrollTop = log.scrollHeight;
+      if (i < text.length) {
+        setTimeout(tick, i < 12 ? 28 : 16);
+        return;
+      }
+      setTyping(false);
+      if (done) done();
+    }
+    tick();
   }
 
   function setOpen(open) {
@@ -111,7 +141,7 @@
     var text =
       s +
       ". Eu sou a Zara, da ZA-TECH. Prazer em te atender. Como posso te chamar?";
-    bubble("zara", text);
+    typeZara(text);
     state.messages.push({ role: "model", parts: [{ text: text }] });
   }
 
@@ -201,13 +231,12 @@
     if (state.step === "askName") {
       var nome = firstName(text);
       if (!nome) {
-        bubble("zara", "Pode me passar so o primeiro nome, por favor?");
+        typeZara("Pode me passar so o primeiro nome, por favor?");
         return;
       }
       state.nome = nome;
       state.step = "askDiag";
-      bubble(
-        "zara",
+      typeZara(
         "Prazer, " +
           nome +
           ". Voce gostaria de fazer um pre-diagnostico agora?"
@@ -218,8 +247,7 @@
     if (state.step === "askDiag") {
       if (looksNo(text)) {
         state.step = "idle";
-        bubble(
-          "zara",
+        typeZara(
           "Tudo bem, " +
             state.nome +
             ". Qualquer hora estamos aqui. Se preferir, a bancada atende no WhatsApp (85) 99988-6993."
@@ -232,8 +260,7 @@
         return;
       }
       if (!looksYes(text) && text.length < 8) {
-        bubble(
-          "zara",
+        typeZara(
           state.nome + ", voce deseja fazer o pre-diagnostico agora? Pode responder sim ou nao."
         );
         return;
@@ -252,20 +279,17 @@
     }
 
     state.busy = true;
-    el("zaraSend").disabled = true;
-    bubble("zara", "Um instante, " + (state.nome || "") + "…");
-    var typing = el("zaraLog").lastElementChild;
+    setTyping(true);
     var reply = await askGemini(text);
-    if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
-    bubble("zara", reply);
     state.messages.push({ role: "model", parts: [{ text: reply }] });
     saveHist({
       nome: state.nome,
       resumo: text.slice(0, 180) + " | Zara: " + reply.slice(0, 180),
       em: Date.now()
     });
-    state.busy = false;
-    el("zaraSend").disabled = false;
+    typeZara(reply, function () {
+      state.busy = false;
+    });
   }
 
   function bind() {
@@ -302,7 +326,7 @@
     } catch (e) {}
     setTimeout(function () {
       setOpen(true);
-      if (state.step === "askName" && !el("zaraLog").children.length) greet();
+      if (state.step === "askName" && !el("zaraLog").querySelector(".zara-row")) greet();
     }, DELAY_MS);
   }
 

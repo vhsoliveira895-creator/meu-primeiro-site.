@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=lux3">
+  <link rel="stylesheet" href="css/style.css?v=lux4">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -161,7 +161,9 @@
         </div>
         <button class="zara-close" id="zaraClose" type="button" aria-label="Minimizar conversa">—</button>
       </header>
-      <div class="zara-log" id="zaraLog" role="log" aria-live="polite"></div>
+      <div class="zara-log" id="zaraLog" role="log" aria-live="polite">
+        <div class="zara-typing" id="zaraTyping" hidden>Zara está escrevendo<span>.</span><span>.</span><span>.</span></div>
+      </div>
       <form class="zara-form" id="zaraForm">
         <label class="sr-only" for="zaraInput">Sua mensagem</label>
         <input id="zaraInput" type="text" autocomplete="name" maxlength="500" placeholder="Escreva aqui…">
@@ -171,6 +173,6 @@
   </aside>
   <script src="js/gemini-key.js"></script>
   <script src="js/app.js?v=lux3"></script>
-  <script src="js/zara.js?v=2"></script>
+  <script src="js/zara.js?v=3"></script>
 </body>
 </html>
