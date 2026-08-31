@@ -1,24 +1,24 @@
 const PHRASES = [
-  "Inform\u00e1tica de laborat\u00f3rio.",
-  "Reparo. Manuten\u00e7\u00e3o. Precis\u00e3o.",
-  "Reballing. Multimetro. Precisao.",
+  "Informática de laboratório.",
+  "Reparo. Manutenção. Precisão.",
+  "Reballing. Multímetro. Precisão.",
   "ZA-TECH. Fortaleza."
 ];
 
 const TICKER = [
-  "Diagnostico com o dono na bancada.",
-  "Onde o equipamento estiver, o dono esta junto.",
+  "Diagnóstico com o dono na bancada.",
+  "Onde o equipamento estiver, o dono está junto.",
   "Reballing de GPU na lupa.",
-  "Reballing de modulos de memoria.",
-  "Afericao com multimetro.",
-  "Agende uma consulta com o tecnico.",
-  "Pre-atendimento com a Zara."
+  "Reballing de módulos de memória.",
+  "Aferição com multímetro.",
+  "Agende uma consulta com o técnico.",
+  "Pré-atendimento com a Zara."
 ];
 
 const TOASTS = [
-  "Diagnostico na frente do cliente.",
+  "Diagnóstico na frente do cliente.",
   "Agende uma consulta: (85) 99988-6993.",
-  "Comece o pre-atendimento com a Zara."
+  "Comece o pré-atendimento com a Zara."
 ];
 
 function typewriter(el) {

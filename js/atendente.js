@@ -2,7 +2,7 @@
   var MAX_WAIT = 20000;
   var MODELS = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-flash-latest"];
   var WA_LAB =
-    "WhatsApp do laboratorio: (85) 99988-6993. Traga o equipamento (e o carregador, se for notebook).";
+    "WhatsApp do laboratório: (85) 99988-6993. Traga o equipamento (e o carregador, se for notebook).";
   var HIST_KEY = "zaZaraHistorico";
   var SESSION_KEY = "zaZaraSessao";
 
@@ -80,8 +80,8 @@
       {
         notebook: "notebook",
         desktop: "desktop",
-        gpu: "placa de video",
-        "placa-mae": "placa-mae",
+        gpu: "placa de vídeo",
+        "placa-mae": "placa-mãe",
         fonte: "fonte"
       }[id] || ""
     );
@@ -107,15 +107,15 @@
       : "Nenhum caso anterior neste aparelho.";
 
     return (
-      "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
-      "Apos a apresentacao, diga so 'Prazer' (sem nome) e pergunte: em que posso lhe ajudar?\n" +
-      "Nao liste diagnostico nem orcamento na abertura. Nao use sr, sra, senhor, senhora.\n" +
-      "Nao assuma conserto de maquina. Pergunte em que pode ajudar e extraia o motivo na conversa.\n" +
-      "So depois do motivo, se for reparo, siga o roteiro tecnico. Nunca fale o nome do cliente.\n" +
-      "ROTEIRO (se for reparo): sintoma, tipo de equipamento, se desktop/notebook peca CONFIGURACAO " +
-      "(memoria 8/16 GB, SSD ou HD, Intel i5 / Ryzen 5), liga?, imagem?, Windows.\n" +
-      "Hardware -> laboratorio WhatsApp (85) 99988-6993. Sistema -> backup; lab formata se quiser.\n" +
-      "Nao escreva Prazer, Boa nem Obrigada, Boa.\n\n" +
+      "Você é Zara, da ZA-TECH (Fortaleza). Português do Brasil. Não invente preço nem prazo.\n" +
+      "Após a apresentação, diga só 'Prazer' (sem nome) e pergunte: em que posso lhe ajudar?\n" +
+      "Não liste diagnóstico nem orçamento na abertura. Não use sr, sra, senhor, senhora.\n" +
+      "Não assuma conserto de máquina. Pergunte em que pode ajudar e extraia o motivo na conversa.\n" +
+      "Só depois do motivo, se for reparo, siga o roteiro técnico. Nunca fale o nome do cliente.\n" +
+      "ROTEIRO (se for reparo): sintoma, tipo de equipamento, se desktop/notebook peça CONFIGURAÇÃO " +
+      "(memória 8/16 GB, SSD ou HD, Intel i5 / Ryzen 5), liga?, imagem?, Windows.\n" +
+      "Hardware -> laboratório WhatsApp (85) 99988-6993. Sistema -> backup; lab formata se quiser.\n" +
+      "Não escreva Prazer, Boa nem Obrigada, Boa.\n\n" +
       "Cliente: em atendimento.\nEquipamento: " +
       (labelEquip(state.equipamento) || "?") +
       ".\nConfig: " +
@@ -198,10 +198,11 @@
       }
     );
     t = t.replace(
-      /Pode me dizer[, ]*(por gentileza, )?o que (voce|o\(a\) sr\(a\)) busca na ZA-TECH\??/gi,
+      /Pode me dizer[, ]*(por gentileza, )?o que (voce|você|o\(a\) sr\(a\)) busca na ZA-TECH\??/gi,
       "Em que posso lhe ajudar?"
     );
     t = t.replace(/\s*Diagnostico, orcamento, peca ou outra orientacao\.?/gi, "");
+    t = t.replace(/\s*Diagnóstico, orçamento, peça ou outra orientação\.?/gi, "");
     t = t.replace(/\s+\./g, ".").replace(/\s{2,}/g, " ").trim();
     if (!t) t = "Prazer. Em que posso lhe ajudar?";
     return t;
@@ -290,16 +291,16 @@
 
   function textoLabHardware() {
     return (
-      "Pelo que descreveu, aponta falha de hardware. Precisa de bancada no laboratorio ZA-TECH, em Fortaleza. " +
-      "O tecnico confirma na ESD. " +
+      "Pelo que descreveu, aponta falha de hardware. Precisa de bancada no laboratório ZA-TECH, em Fortaleza. " +
+      "O técnico confirma na ESD. " +
       WA_LAB
     );
   }
 
   function textoSistema() {
     return (
-      "Isso parece mais sistema (Windows/programas/drivers), nao peca queimada. Backup primeiro. " +
-      "Se quiser formatacao, drivers e checagem de disco, o laboratorio tambem faz. " +
+      "Isso parece mais sistema (Windows/programas/drivers), não peça queimada. Backup primeiro. " +
+      "Se quiser formatação, drivers e checagem de disco, o laboratório também faz. " +
       WA_LAB
     );
   }
@@ -364,7 +365,7 @@
 
   function perguntaConfig() {
     state.step = "askConfig";
-    return "Voce consegue me informar a configuracao do computador? Exemplo: quanto tem de memoria (8 GB, 16 GB), se o disco e SSD ou HD, e qual o processador (Intel i5, Ryzen 5).";
+    return "Você consegue me informar a configuração do computador? Exemplo: quanto tem de memória (8 GB, 16 GB), se o disco é SSD ou HD, e qual o processador (Intel i5, Ryzen 5).";
   }
 
   function perguntaLiga() {
@@ -389,19 +390,19 @@
 
     if (state.step === "askSymptom") {
       if (!temDemanda(t) && (t || "").trim().length < 12) {
-        return "Sem problema. Pode me contar o que voce precisa?";
+        return "Sem problema. Pode me contar o que você precisa?";
       }
       state.sintoma = t;
       if (/or[cç]amento|orcamento|quanto custa|pre[cç]o|valor/.test(t.toLowerCase()) && !detectHardware(t) && !detectSoftware(t) && !detectEquip(t)) {
         state.step = "lab";
         return (
-          "O valor sai apos a triagem na bancada, em Fortaleza. " +
+          "O valor sai após a triagem na bancada, em Fortaleza. " +
           "Se quiser adiantar, descreva o ocorrido aqui, ou fale no WhatsApp (85) 99988-6993."
         );
       }
       if (/endere[cç]o|onde fica|horario|visita/.test(t.toLowerCase()) && !detectHardware(t) && !detectEquip(t)) {
         state.step = "lab";
-        return "Laboratorio ZA-TECH em Fortaleza. O atendimento de peca e agendado pelo WhatsApp (85) 99988-6993.";
+        return "Laboratório ZA-TECH em Fortaleza. O atendimento de peça é agendado pelo WhatsApp (85) 99988-6993.";
       }
       var eq = detectEquip(t);
       if (eq) {
@@ -414,13 +415,13 @@
         return aposEquipamento();
       }
       state.step = "askEquip";
-      return "Certo. Voce se refere a notebook, desktop, placa de video, placa-mae ou fonte?";
+      return "Certo. Você se refere a notebook, desktop, placa de vídeo, placa-mãe ou fonte?";
     }
 
     if (state.step === "askEquip") {
       var found = detectEquip(t);
       if (!found) {
-        return "Confirma pra mim: notebook, desktop, placa de video, placa-mae ou fonte?";
+        return "Confirma para mim: notebook, desktop, placa de vídeo, placa-mãe ou fonte?";
       }
       state.equipamento = found;
       return aposEquipamento();
@@ -441,11 +442,11 @@
         state.liga = "nao";
         state.classe = "hardware";
         state.step = "lab";
-        return "Se nao liga, e hardware (fonte, placa-mae ou alimentacao). " + textoLabHardware();
+        return "Se não liga, é hardware (fonte, placa-mãe ou alimentação). " + textoLabHardware();
       }
       state.liga = "sim";
       state.step = "askImage";
-      return "Liga. Tem imagem na tela ou fica preta, sem video?";
+      return "Liga. Tem imagem na tela ou fica preta, sem vídeo?";
     }
 
     if (state.step === "askImage") {
@@ -453,11 +454,11 @@
         state.imagem = "nao";
         state.classe = "hardware";
         state.step = "lab";
-        return "Sem imagem com o equipamento ligando: GPU, memoria, cabo ou placa-mae. " + textoLabHardware();
+        return "Sem imagem com o equipamento ligando: GPU, memória, cabo ou placa-mãe. " + textoLabHardware();
       }
       state.imagem = "sim";
       state.step = "askSystem";
-      return "O Windows inicia? Fica lento, trava, tela azul, virus, ou nao entra no sistema?";
+      return "O Windows inicia? Fica lento, trava, tela azul, vírus, ou não entra no sistema?";
     }
 
     if (state.step === "askSystem") {
@@ -475,15 +476,15 @@
       if (detectHardware(t) && detectSoftware(t)) {
         state.classe = "misto";
         state.step = "lab";
-        return "Pode ser sistema e peca ao mesmo tempo. O laboratorio testa hardware e sistema na mesma triagem. " + WA_LAB;
+        return "Pode ser sistema e peça ao mesmo tempo. O laboratório testa hardware e sistema na mesma triagem. " + WA_LAB;
       }
-      return "Detalha o sistema: inicia o Windows, trava em programa, tela azul, ou liga sem entrar no SO?";
+      return "Detalhe o sistema: inicia o Windows, trava em programa, tela azul, ou liga sem entrar no SO?";
     }
 
     if (state.step === "lab") {
       if (state.classe === "software") return textoSistema();
       if (state.classe === "misto") {
-        return "Melhor trazer no laboratorio pra testar peca e sistema. " + WA_LAB;
+        return "Melhor trazer no laboratório para testar peça e sistema. " + WA_LAB;
       }
       return textoLabHardware();
     }
@@ -498,7 +499,7 @@
       state.step = "lab";
       return textoSistema();
     }
-    return "Pode detalhar se liga, se ha imagem e se o Windows inicia? Se preferir bancada: " + WA_LAB;
+    return "Pode detalhar se liga, se há imagem e se o Windows inicia? Se preferir bancada: " + WA_LAB;
   }
 
   async function askGemini(userText) {
@@ -557,7 +558,7 @@
         lastErr = e.message || String(e);
       }
     }
-    return localReply(userText) + " (A IA nao respondeu agora: " + lastErr + ".)";
+    return localReply(userText) + " (A IA não respondeu agora: " + lastErr + ".)";
   }
 
   async function onSend(raw) {
