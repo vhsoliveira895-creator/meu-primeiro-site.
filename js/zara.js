@@ -108,13 +108,13 @@
 
     return (
       "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
-      "Formalidade SO na apresentacao (bom dia/tarde/noite). Depois diga so 'Prazer' e siga o atendimento. NUNCA fale o nome do cliente.\n" +
-      "Depois fale como tecnico: direto, sem obrigada em toda frase.\n" +
-      "ROTEIRO: 1) nome 2) sintoma 3) tipo de maquina 4) se desktop/notebook, peca CONFIGURACAO: " +
-      "o sr(a) consegue informar a configuracao? Ex.: memoria 8 GB ou 16 GB, SSD ou HD, processador Intel i5 ou Ryzen 5. " +
-      "5) liga? imagem? Windows inicia (lento, trava, tela azul)? " +
-      "6) hardware -> laboratorio WhatsApp (85) 99988-6993. sistema -> backup; lab formata se quiser.\n" +
-      "Nunca trate o cliente pelo nome. Nao escreva Prazer, Boa nem Obrigada, Boa.\n\n" +
+      "Apos a apresentacao, diga so 'Prazer' (sem nome) e pergunte, com educacao, o que o cliente busca na ZA-TECH.\n" +
+      "Nao assuma que e conserto de maquina. Extraia o motivo: diagnostico, orcamento, peca, upgrade ou informacao do laboratorio.\n" +
+      "So depois do motivo, se for reparo, siga o roteiro tecnico. Nunca fale o nome do cliente.\n" +
+      "ROTEIRO (se for reparo): sintoma, tipo de equipamento, se desktop/notebook peca CONFIGURACAO " +
+      "(memoria 8/16 GB, SSD ou HD, Intel i5 / Ryzen 5), liga?, imagem?, Windows.\n" +
+      "Hardware -> laboratorio WhatsApp (85) 99988-6993. Sistema -> backup; lab formata se quiser.\n" +
+      "Nao escreva Prazer, Boa nem Obrigada, Boa.\n\n" +
       "Cliente: em atendimento.\nEquipamento: " +
       (labelEquip(state.equipamento) || "?") +
       ".\nConfig: " +
@@ -332,6 +332,25 @@
     return "";
   }
 
+  function temDemanda(t) {
+    var s = (t || "").toLowerCase();
+    return !!(
+      detectEquip(s) ||
+      detectHardware(s) ||
+      detectSoftware(s) ||
+      /or[cç]amento|pre[cç]o|quanto custa|valor|conserto|consertar|reparo|manuten[cç][aã]o|pe[cç]a|upgrade|formatar|laboratorio|endere[cç]o|horario|visita|orcamento/.test(
+        s
+      )
+    );
+  }
+
+  function perguntaMotivo() {
+    return (
+      "Prazer. Pode me dizer, por gentileza, o que o(a) sr(a) busca na ZA-TECH? " +
+      "Diagnostico, orcamento, peca ou outra orientacao."
+    );
+  }
+
   function perguntaConfig() {
     state.step = "askConfig";
     return "O sr(a) consegue me informar a configuracao do computador? Exemplo: quanto tem de memoria (8 GB, 16 GB), se o disco e SSD ou HD, e qual o processador (Intel i5, Ryzen 5).";
@@ -339,7 +358,7 @@
 
   function perguntaLiga() {
     state.step = "askPower";
-    return "A maquina liga? Acende luz, ventoinha ou bip?";
+    return "Esse equipamento chega a ligar? Acende luz, ventoinha ou bip?";
   }
 
   function aposEquipamento() {
@@ -358,7 +377,21 @@
     var t = userText || "";
 
     if (state.step === "askSymptom") {
+      if (!temDemanda(t) && (t || "").trim().length < 12) {
+        return "Sem problema. O sr(a) veio por conserto, orcamento, peca ou informacao do laboratorio?";
+      }
       state.sintoma = t;
+      if (/or[cç]amento|orcamento|quanto custa|pre[cç]o|valor/.test(t.toLowerCase()) && !detectHardware(t) && !detectSoftware(t) && !detectEquip(t)) {
+        state.step = "lab";
+        return (
+          "O valor sai apos a triagem na bancada, em Fortaleza. " +
+          "Se quiser adiantar, descreva o ocorrido aqui, ou fale no WhatsApp (85) 99988-6993."
+        );
+      }
+      if (/endere[cç]o|onde fica|horario|visita/.test(t.toLowerCase()) && !detectHardware(t) && !detectEquip(t)) {
+        state.step = "lab";
+        return "Laboratorio ZA-TECH em Fortaleza. O atendimento de peca e agendado pelo WhatsApp (85) 99988-6993.";
+      }
       var eq = detectEquip(t);
       if (eq) {
         state.equipamento = eq;
@@ -370,13 +403,13 @@
         return aposEquipamento();
       }
       state.step = "askEquip";
-      return "E notebook, desktop, placa de video, placa-mae ou fonte?";
+      return "Certo. O sr(a) refere-se a notebook, desktop, placa de video, placa-mae ou fonte?";
     }
 
     if (state.step === "askEquip") {
       var found = detectEquip(t);
       if (!found) {
-        return "Confirma pra mim: notebook, desktop, placa de video, placa-mae ou fonte?";
+        return "Confirma, por gentileza: notebook, desktop, placa de video, placa-mae ou fonte?";
       }
       state.equipamento = found;
       return aposEquipamento();
@@ -409,7 +442,7 @@
         state.imagem = "nao";
         state.classe = "hardware";
         state.step = "lab";
-        return "Sem imagem com a maquina ligando: GPU, memoria, cabo ou placa-mae. " + textoLabHardware();
+        return "Sem imagem com o equipamento ligando: GPU, memoria, cabo ou placa-mae. " + textoLabHardware();
       }
       state.imagem = "sim";
       state.step = "askSystem";
@@ -454,7 +487,7 @@
       state.step = "lab";
       return textoSistema();
     }
-    return "Confirma: a maquina liga, tem imagem e o Windows inicia? Se quiser bancada: " + WA_LAB;
+    return "Pode detalhar se liga, se ha imagem e se o Windows inicia? Se preferir bancada: " + WA_LAB;
   }
 
   async function askGemini(userText) {
@@ -527,7 +560,11 @@
       var nome = firstName(text);
       if (nome) state.nome = nome;
       state.step = "askSymptom";
-      await speak("Prazer. O que esta acontecendo com a maquina?");
+      if (temDemanda(text)) {
+        await speak("Prazer. " + localReply(text));
+        return;
+      }
+      await speak(perguntaMotivo());
       return;
     }
 
