@@ -87,23 +87,26 @@ a { color: inherit; text-decoration: none; }
 
 .hero {
   position: relative;
+  z-index: 2;
   min-height: 100vh;
   display: grid;
   align-items: end;
   padding: 8rem 5% 4.5rem;
 }
 
-.hero-bg { position: absolute; inset: 0; }
-.hero-bg img {
-  position: absolute; inset: 0;
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
+.hero-bg video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 35%;
 }
 
 .hero-veil {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
     linear-gradient(90deg, rgba(7,7,6,.88) 0%, rgba(7,7,6,.45) 52%, rgba(7,7,6,.2) 100%),
     linear-gradient(180deg, transparent 30%, rgba(7,7,6,.85));
@@ -604,6 +607,8 @@ button.btn { font-family: inherit; }
 .cta p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
 footer {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -612,7 +617,7 @@ footer {
   border-top: 1px solid var(--line);
   color: var(--mute);
   font-size: 0.8rem;
-  background: rgba(12, 12, 11, 0.92);
+  background: rgba(12, 12, 11, 0.72);
 }
 footer a { color: var(--gold); }
 footer strong { color: var(--ink); letter-spacing: 0.16em; }
