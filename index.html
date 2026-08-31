@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=lab21">
+  <link rel="stylesheet" href="css/style.css?v=lab22">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -32,12 +32,9 @@
   </header>
   <section class="hero" id="topo">
     <div class="hero-bg" aria-hidden="true">
-      <video autoplay muted loop playsinline preload="auto" poster="media/zatech-gpu.png">
-        <source src="media/hero-gpu.mp4" type="video/mp4">
-      </video>
+      <img src="media/za-logo-ig-bg.jpg" alt="" width="1024" height="1024" fetchpriority="high">
     </div>
     <div class="hero-veil"></div>
-    <div class="fx-scan hero-scan" aria-hidden="true"></div>
     <div class="hero-copy window window-pane">
       <p class="eyebrow">Fortaleza — Laboratorio de precisao</p>
       <h1><span id="typeLine"></span><i class="caret"></i></h1>
@@ -187,7 +184,9 @@
     </div>
   </section>
   <section class="ig-band" id="instagram">
-    <img class="ig-band-bg" src="media/za-logo-ig-bg.jpg" alt="">
+    <video class="ig-band-bg" muted loop playsinline preload="metadata">
+      <source src="media/hero-gpu.mp4" type="video/mp4">
+    </video>
     <div class="ig-band-veil"></div>
     <a class="ig-card window" href="https://www.instagram.com/zatech.informatica/" target="_blank" rel="noopener noreferrer">
       <img class="ig-avatar" src="media/za-logo-hero.jpg" alt="Foto de perfil ZA-TECH no Instagram">
@@ -254,7 +253,7 @@
   </aside>
   <script>window.ZA_FRASE_MOTIVO = "Prazer. Em que posso lhe ajudar?";</script>
   <script src="js/gemini-key.js"></script>
-  <script src="js/app.js?v=lab21"></script>
+  <script src="js/app.js?v=lab22"></script>
   <script src="js/atendente.js?v=4"></script>
 </body>
 </html>

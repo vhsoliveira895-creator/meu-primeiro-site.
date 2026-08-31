@@ -107,12 +107,12 @@ function tabs() {
 
 document.addEventListener("DOMContentLoaded", function () {
   typewriter(document.getElementById("typeLine"));
-  var hero = document.querySelector(".hero-bg video");
-  if (hero) {
-    hero.muted = true;
-    var play = hero.play();
+  document.querySelectorAll(".ig-band-bg").forEach(function (vid) {
+    if (!vid.play) return;
+    vid.muted = true;
+    var play = vid.play();
     if (play && play.catch) play.catch(function () {});
-  }
+  });
   ticker();
   toasts();
   tabs();
