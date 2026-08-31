@@ -2,6 +2,8 @@
   var DELAY_MS = 12000;
   var MAX_WAIT = 20000;
   var MODELS = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-flash-latest"];
+  var WA_LAB =
+    "WhatsApp do laboratorio: (85) 99988-6993. Traga o equipamento (e o carregador, se for notebook).";
   var HIST_KEY = "zaZaraHistorico";
   var SESSION_KEY = "zaZaraSessao";
 
@@ -10,6 +12,10 @@
     nome: "",
     equipamento: "",
     sintoma: "",
+    liga: "",
+    imagem: "",
+    sistema: "",
+    classe: "",
     messages: [],
     busy: false
   };
@@ -100,30 +106,40 @@
       : "Nenhum caso anterior neste aparelho.";
 
     return (
-      "Voce e Zara, atendente humana da ZA-TECH, laboratorio de informatica em Fortaleza (CE). " +
-      "Sempre cordial, educada e clara. Portugues do Brasil. Frases curtas. Nunca soe robotica. " +
-      "Trate pelo primeiro nome. Nao use gíria pesada. Nao invente preco, prazo, peca ou garantia. " +
-      "Deixe claro que isto e pre-diagnostico; o tecnico confirma na bancada ESD.\n\n" +
-      "ORDEM OBRIGATORIA DO ATENDIMENTO:\n" +
-      "1) Acolhimento educado (ja feito se o nome existir). Nao pule para o diagnostico sem educacao.\n" +
-      "2) Pergunte o que esta acontecendo com o equipamento (sintoma).\n" +
-      "3) Identifique o equipamento: notebook, desktop, GPU/placa de video, placa-mae ou fonte. " +
-      "Se nao estiver claro, pergunte. Nao faca pre-diagnostico antes de identificar.\n" +
-      "4) Depois de identificado, faca o pre-diagnostico: quando comecou, se liga, se tem imagem, " +
-      "superaquecimento, barulho, cheiro de queimado, queda, liquido, uso em jogo, POST, cabo.\n" +
-      "5) Resumo do pre-diagnostico em linguagem simples + convite ao WhatsApp (85) 99988-6993.\n\n" +
-      "SERVICOS ZA-TECH: reparo e manutencao de notebook, desktop, GPU, placa-mae e fonte; " +
-      "limpeza termica, upgrade, sistema/backup, preventiva. Fortaleza. " +
-      "Nao atenda assunto fora de informatica; redirecione com educacao.\n\n" +
+      "Voce e Zara, atendente da ZA-TECH, laboratorio de informatica em Fortaleza (CE). " +
+      "Cordial e educada. Portugues do Brasil. Frases curtas. Nao invente preco, prazo ou garantia.\n\n" +
+      "ROTEIRO OBRIGATORIO:\n" +
+      "1) Acolhimento e nome.\n" +
+      "2) O que esta acontecendo com o equipamento.\n" +
+      "3) Identificar: notebook, desktop, GPU, placa-mae ou fonte. Sem isso, nao feche diagnostico.\n" +
+      "4) Pre-diagnostico nesta ordem: (a) liga? (b) tem imagem? (c) o SISTEMA inicia " +
+      "(Windows/Linux: lento, trava, tela azul, virus, nao entra no SO).\n" +
+      "5) CLASSIFICAR:\n" +
+      "- HARDWARE: nao liga, sem imagem, cheiro de queimado, estalo, artefato, liquido, queda, curto, fonte desarma, sem POST. " +
+      "Acao: direcionar ao LABORATORIO ZA-TECH. Nao oriente abrir a peca em casa. " +
+      "Texto: precisa de bancada. WhatsApp (85) 99988-6993. Trazer equipamento e carregador se notebook.\n" +
+      "- SISTEMA: Windows lento, programa, driver, virus, formatar, login, inicia mas trava. " +
+      "Acao: backup primeiro; laboratorio faz formatacao e checagem de disco se quiser.\n" +
+      "- MISTO: peca e sistema. Trazer ao laboratorio para triagem unica.\n" +
+      "6) Sempre deixe claro que e pre-diagnostico; o tecnico confirma na bancada ESD.\n\n" +
+      "SERVICOS: GPU, placa-mae, fonte, notebook, desktop, limpeza termica, upgrade, sistema/backup, preventiva.\n\n" +
       "Cliente: " +
       (state.nome || "ainda sem nome") +
-      ".\nEquipamento identificado: " +
+      ".\nEquipamento: " +
       (labelEquip(state.equipamento) || "ainda nao") +
-      ".\nSintoma ja relatado: " +
+      ".\nSintoma: " +
       (state.sintoma || "ainda nao") +
-      ".\nEtapa atual: " +
+      ".\nLiga: " +
+      (state.liga || "?") +
+      ".\nImagem: " +
+      (state.imagem || "?") +
+      ".\nSistema: " +
+      (state.sistema || "?") +
+      ".\nClasse: " +
+      (state.classe || "?") +
+      ".\nEtapa: " +
       state.step +
-      ".\nCasos anteriores neste aparelho (referencia interna, nao exponha):\n" +
+      ".\nCasos anteriores:\n" +
       casos
     );
   }
@@ -211,51 +227,168 @@
     speak(text);
   }
 
+  function looksYes(t) {
+    return /^(sim|s|ss|liga|ligado|liga sim|tenho|tem|aparece|ok|claro|positivo)\b/i.test(
+      (t || "").trim()
+    ) || /\b(sim|liga|tem imagem|ta ligando|está ligando)\b/i.test(t);
+  }
+
+  function looksNo(t) {
+    return /^(nao|não|n|negativo|nunca)\b/i.test((t || "").trim()) ||
+      /\b(nao liga|não liga|nao acende|não acende|sem imagem|tela preta|morto)\b/i.test(t);
+  }
+
+  function detectHardware(t) {
+    var s = (t || "").toLowerCase();
+    return /nao liga|não liga|sem energia|cheiro|queim|estalo|chiado|artefato|tela preta|sem imagem|liquido|líquido|derram|caiu|queda|curto|nao da video|não dá vídeo|fonte desarma|bip|nao da post|não dá post|capacitor|placa morta|gpu morta/.test(
+      s
+    );
+  }
+
+  function detectSoftware(t) {
+    var s = (t || "").toLowerCase();
+    return /windows|linux|sistema|formatar|v[ií]rus|lento|travando|programa|driver|atualiza|tela azul|bsod|login|senha|office|lento pra abrir|erro de sistema|nao inicia o windows|não inicia o windows|restauração|restauracao/.test(
+      s
+    );
+  }
+
+  function textoLabHardware() {
+    return (
+      "Pelo pre-diagnostico, isso aponta falha de hardware. Nao e caso so de sistema: precisa de bancada no laboratorio ZA-TECH, em Fortaleza. " +
+      "O tecnico confirma na ESD. " +
+      WA_LAB
+    );
+  }
+
+  function textoSistema() {
+    return (
+      "Isso parece mais sistema (Windows/programas/drivers), nao peca queimada. Backup primeiro. " +
+      "Se quiser formatacao, drivers e checagem de disco, o laboratorio tambem faz. " +
+      WA_LAB
+    );
+  }
+
   function firstName(raw) {
     var clean = raw.replace(/[^A-Za-zÀ-ÿ\s'-]/g, " ").trim().split(/\s+/)[0] || "";
     if (clean.length < 2) return "";
     return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
   }
 
+  function startPowerQuestion() {
+    state.step = "askPower";
+    return (
+      "Obrigada, " +
+      state.nome +
+      ". Equipamento: " +
+      labelEquip(state.equipamento) +
+      ". Vamos ao pre-diagnostico. O aparelho liga? Acende luz, ventoinha ou bip?"
+    );
+  }
+
   function localReply(userText) {
+    var t = userText || "";
+
     if (state.step === "askSymptom") {
-      state.sintoma = userText;
-      var eq = detectEquip(userText);
+      state.sintoma = t;
+      var eq = detectEquip(t);
       if (eq) {
         state.equipamento = eq;
-        state.step = "diag";
-        return (
-          "Obrigada, " +
-          state.nome +
-          ". Identifiquei: " +
-          labelEquip(eq) +
-          ". Agora o pre-diagnostico: o aparelho liga? Aparece imagem? Comecou do nada ou depois de queda, liquido ou calor?"
-        );
+        if (detectHardware(t) && !detectSoftware(t)) {
+          state.classe = "hardware";
+          state.step = "lab";
+          return textoLabHardware();
+        }
+        return startPowerQuestion();
       }
       state.step = "askEquip";
       return (
         "Entendi, " +
         state.nome +
-        ". Para eu identificar o equipamento: e notebook, desktop, placa de video, placa-mae ou fonte?"
+        ". Para identificar o equipamento: e notebook, desktop, placa de video, placa-mae ou fonte?"
       );
     }
+
     if (state.step === "askEquip") {
-      var found = detectEquip(userText);
+      var found = detectEquip(t);
       if (!found) {
         return "Pode confirmar, por favor: notebook, desktop, placa de video, placa-mae ou fonte?";
       }
       state.equipamento = found;
-      state.step = "diag";
+      if (detectHardware(state.sintoma + " " + t) && !detectSoftware(t)) {
+        state.classe = "hardware";
+        state.step = "lab";
+        return textoLabHardware();
+      }
+      return startPowerQuestion();
+    }
+
+    if (state.step === "askPower") {
+      if (looksNo(t) || /nao liga|não liga|morto|sem energia/.test(t.toLowerCase())) {
+        state.liga = "nao";
+        state.classe = "hardware";
+        state.step = "lab";
+        return "Se nao liga, o pre-diagnostico e de hardware (fonte, placa-mae ou alimentacao). " + textoLabHardware();
+      }
+      state.liga = "sim";
+      state.step = "askImage";
+      return "Ele liga. Aparece imagem na tela, ou fica preta / sem video?";
+    }
+
+    if (state.step === "askImage") {
+      if (looksNo(t) || /preta|sem video|sem imagem|sem sinal|nao da video|não dá vídeo/.test(t.toLowerCase())) {
+        state.imagem = "nao";
+        state.classe = "hardware";
+        state.step = "lab";
+        return "Sem imagem, com o aparelho ligando, costuma ser GPU, memoria, cabo ou placa-mae. " + textoLabHardware();
+      }
+      state.imagem = "sim";
+      state.step = "askSystem";
+      return "Tem imagem. Agora o sistema: o Windows (ou Linux) inicia normal, ou trava, fica lento, da tela azul, virus, ou nao entra no sistema?";
+    }
+
+    if (state.step === "askSystem") {
+      state.sistema = t;
+      if (detectHardware(t) && !detectSoftware(t)) {
+        state.classe = "hardware";
+        state.step = "lab";
+        return textoLabHardware();
+      }
+      if (detectSoftware(t) && !detectHardware(t)) {
+        state.classe = "software";
+        state.step = "lab";
+        return textoSistema();
+      }
+      if (detectHardware(t) && detectSoftware(t)) {
+        state.classe = "misto";
+        state.step = "lab";
+        return "Pode ser sistema e peca ao mesmo tempo. O laboratorio testa hardware e sistema na mesma triagem. " + WA_LAB;
+      }
       return (
-        "Perfeito. Equipamento: " +
-        labelEquip(found) +
-        ". Pre-diagnostico: ele liga? Tem imagem na tela? Tem barulho, cheiro de queimado ou superaquecimento?"
+        "Pode detalhar o sistema, " +
+        state.nome +
+        "? Por exemplo: inicia o Windows, trava em programa, tela azul, ou o PC liga sem entrar no sistema."
       );
     }
-    return (
-      "Obrigada pelas informacoes. Isso ja ajuda o pre-diagnostico, mas o tecnico confirma na bancada. " +
-      "Se quiser, seguimos no WhatsApp (85) 99988-6993. Pode mandar foto do equipamento e do sintoma."
-    );
+
+    if (state.step === "lab") {
+      if (state.classe === "software") return textoSistema();
+      if (state.classe === "misto") {
+        return "Melhor trazer ao laboratorio para testar peca e sistema. " + WA_LAB;
+      }
+      return textoLabHardware();
+    }
+
+    if (detectHardware(t)) {
+      state.classe = "hardware";
+      state.step = "lab";
+      return textoLabHardware();
+    }
+    if (detectSoftware(t)) {
+      state.classe = "software";
+      state.step = "lab";
+      return textoSistema();
+    }
+    return "Pode repetir se o aparelho liga, se tem imagem e se o sistema inicia? Assim eu fecho o pre-diagnostico. Se ja quiser a bancada: " + WA_LAB;
   }
 
   async function askGemini(userText) {
@@ -331,19 +464,8 @@
       return;
     }
 
-    if (state.step === "askSymptom") {
-      state.sintoma = text;
-      var maybe = detectEquip(text);
-      if (maybe) state.equipamento = maybe;
-      if (!state.equipamento) state.step = "askEquip";
-      else state.step = "diag";
-    } else if (state.step === "askEquip") {
-      var eq = detectEquip(text);
-      if (eq) {
-        state.equipamento = eq;
-        state.step = "diag";
-      }
-    }
+    var eqNow = detectEquip(text);
+    if (eqNow) state.equipamento = eqNow;
 
     state.messages.push({ role: "user", parts: [{ text: text }] });
     var reply = await speakAfterWork(function () {
@@ -352,6 +474,7 @@
     saveHist({
       nome: state.nome,
       equipamento: state.equipamento,
+      classe: state.classe,
       resumo: text.slice(0, 160) + " | " + (reply || "").slice(0, 160),
       em: Date.now()
     });
