@@ -1,7 +1,7 @@
 const PHRASES = [
   "Inform\u00e1tica de laborat\u00f3rio.",
   "Reparo. Manuten\u00e7\u00e3o. Precis\u00e3o.",
-  "Reballing. Multimetro. Osciloscopio.",
+  "Reballing. Multimetro. Precisao.",
   "ZA-TECH. Fortaleza."
 ];
 
@@ -11,7 +11,6 @@ const TICKER = [
   "Reballing de GPU na lupa.",
   "Reballing de modulos de memoria.",
   "Afericao com multimetro.",
-  "Osciloscopio na placa.",
   "Agende uma consulta com o tecnico.",
   "Pre-atendimento com a Zara."
 ];
@@ -55,56 +54,6 @@ function typewriter(el) {
     setTimeout(tick, 26);
   }
   tick();
-}
-
-function playLoops() {
-  var nodes = document.querySelectorAll("video");
-  function arm(v) {
-    v.muted = true;
-    v.playsInline = true;
-  }
-  if (!("IntersectionObserver" in window)) {
-    nodes.forEach(function (v) {
-      arm(v);
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {});
-    });
-    return;
-  }
-  var io = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (e) {
-        var v = e.target;
-        if (v.closest(".panel") && v.closest(".panel").hidden) return;
-        if (e.isIntersecting) {
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
-        } else {
-          v.pause();
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
-  nodes.forEach(function (v) {
-    arm(v);
-    io.observe(v);
-  });
-}
-
-function playPanelVideo(id) {
-  document.querySelectorAll(".panel video").forEach(function (v) {
-    v.pause();
-  });
-  var panel = document.querySelector('.panel[data-panel="' + id + '"]');
-  var v = panel && panel.querySelector("video");
-  if (!v) return;
-  var p = v.play();
-  if (p && p.catch) p.catch(function () {});
-}
-
-function heroPhotos() {
-  playLoops();
 }
 
 function ticker() {
@@ -151,7 +100,6 @@ function tabs() {
         const on = p.getAttribute("data-panel") === id;
         p.classList.toggle("on", on);
         p.hidden = !on;
-        if (on) playPanelVideo(id);
       });
     });
   });
@@ -159,7 +107,6 @@ function tabs() {
 
 document.addEventListener("DOMContentLoaded", function () {
   typewriter(document.getElementById("typeLine"));
-  heroPhotos();
   ticker();
   toasts();
   tabs();
