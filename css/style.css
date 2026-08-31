@@ -8,7 +8,12 @@
   --line: rgba(244, 239, 230, 0.12);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   font-family: Manrope, sans-serif;
@@ -16,6 +21,8 @@ body {
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -99,9 +106,9 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 1rem;
 }
 
-h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 600; }
-h1 { font-size: clamp(2.6rem, 6vw, 5.2rem); line-height: 0.95; min-height: 2.1em; letter-spacing: -0.02em; }
-h2 { font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.05; }
+h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 600; overflow-wrap: anywhere; }
+h1 { font-size: clamp(1.7rem, 6vw, 4.4rem); line-height: 1.05; min-height: 2.1em; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 4vw, 3.1rem); line-height: 1.1; }
 .caret {
   display: inline-block;
   width: 2px; height: 0.72em;
@@ -298,10 +305,11 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
 .zara {
   position: fixed;
   right: 1.2rem;
-  bottom: 8.2rem;
+  bottom: calc(8.2rem + env(safe-area-inset-bottom, 0px));
   z-index: 90;
   font-family: Manrope, sans-serif;
   isolation: isolate;
+  max-width: min(22.5rem, calc(100vw - 1.6rem));
 }
 
 body.zara-open .toast,
@@ -319,6 +327,8 @@ body.zara-open .ticker {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  width: fit-content;
+  margin-left: auto;
   padding: 0.35rem 0.85rem 0.35rem 0.35rem;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -347,8 +357,9 @@ body.zara-open .ticker {
 .zara-win {
   display: flex;
   flex-direction: column;
-  width: min(22.5rem, calc(100vw - 2rem));
-  max-height: min(34rem, calc(100vh - 10.5rem));
+  width: 100%;
+  max-width: min(22.5rem, calc(100vw - 1.6rem));
+  max-height: min(34rem, calc(100dvh - 10.5rem));
   background: #10100e;
   border: 1px solid var(--line);
   border-radius: 1.1rem;
@@ -506,17 +517,31 @@ body.zara-open .ticker {
   .gallery { height: auto; }
   .gallery img { height: 160px; }
   .ticker { display: none; }
+  .hero-copy { max-width: 100%; padding-right: 0.5rem; }
 }
 @media (max-width: 640px) {
   .split, .panel.on, .cards, .method ol, .gallery { grid-template-columns: 1fr; }
-  .hero { min-height: 92vh; }
+  .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }
+  h1 { min-height: 0; font-size: clamp(1.55rem, 8.5vw, 2.2rem); }
+  .lead { font-size: 0.95rem; }
+  .nav-zap { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
+  .brand { font-size: 1.15rem; letter-spacing: 0.12em; }
+  .toast { max-width: calc(100vw - 5.5rem); font-size: 0.8rem; }
   .zara {
-    right: 0.7rem;
-    left: 0.7rem;
-    bottom: 7.4rem;
+    right: 0.6rem;
+    left: 0.6rem;
+    bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px));
+    max-width: none;
   }
   .zara-win {
     width: 100%;
-    max-height: calc(100vh - 9.2rem);
+    max-width: none;
+    max-height: calc(100dvh - 8.2rem - env(safe-area-inset-bottom, 0px));
   }
+  .zara-log { min-height: 6.5rem; }
+  .zara-row p,
+  .zara-head strong,
+  .zara-typing { font-size: 0.9rem; }
+  .zara-form input,
+  .zara-form button { font-size: 16px; }
 }

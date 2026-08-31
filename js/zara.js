@@ -326,7 +326,7 @@
 
   function start() {
     bind();
-    el("zaraLaunch").hidden = true;
+    el("zaraLaunch").hidden = false;
     el("zaraWin").hidden = true;
     openLater();
   }
