@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=lab8">
+  <link rel="stylesheet" href="css/style.css?v=lab9">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -18,6 +18,7 @@
     <a class="brand" href="#topo">ZA<em>-</em>TECH</a>
     <nav>
       <a href="#atelier">Atelier</a>
+      <a href="#bancada">Bancada</a>
       <a href="#presenca">Presenca</a>
       <a href="#servicos">Servicos</a>
       <a href="#manutencao">Manutencao</a>
@@ -33,6 +34,7 @@
       </video>
     </div>
     <div class="hero-veil"></div>
+    <div class="fx-scan hero-scan" aria-hidden="true"></div>
     <div class="hero-copy">
       <p class="eyebrow">Fortaleza ? Laboratorio de precisao</p>
       <h1><span id="typeLine"></span><i class="caret"></i></h1>
@@ -46,16 +48,60 @@
   </section>
   <section class="marquee" aria-hidden="true">
     <div>
-      <span>Notebook</span><span>Desktop</span><span>GPU</span><span>Placa-mae</span><span>Fonte</span><span>Limpeza termica</span><span>Upgrade</span><span>SO e backup</span>
-      <span>Notebook</span><span>Desktop</span><span>GPU</span><span>Placa-mae</span><span>Fonte</span><span>Limpeza termica</span><span>Upgrade</span><span>SO e backup</span>
+      <span>Reballing GPU</span><span>Reballing memoria</span><span>Multimetro</span><span>Osciloscopio</span><span>BGA</span><span>Notebook</span><span>Desktop</span><span>Fonte</span>
+      <span>Reballing GPU</span><span>Reballing memoria</span><span>Multimetro</span><span>Osciloscopio</span><span>BGA</span><span>Notebook</span><span>Desktop</span><span>Fonte</span>
     </div>
   </section>
-  <section class="loop-band" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata" poster="media/zatech-aisle.png">
-      <source src="media/hero-lab.mp4" type="video/mp4">
-    </video>
-    <div class="loop-band-veil"></div>
-    <p>Laboratorio em movimento. Voce acompanha.</p>
+  <section class="bench" id="bancada">
+    <header class="block-head">
+      <p class="eyebrow">Bancada ao vivo</p>
+      <h2>Reballing. Afericao. Sinal.</h2>
+    </header>
+    <div class="bench-grid">
+      <article class="fx-card">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-gpu.png">
+          <source src="media/tab-gpu.mp4" type="video/mp4">
+        </video>
+        <div class="fx-scan" aria-hidden="true"></div>
+        <div class="fx-glow" aria-hidden="true"></div>
+        <span class="live">Loop</span>
+        <h3>Reballing de GPU</h3>
+        <p>BGA, stencil e esferas. Retrabalho sob lupa.</p>
+      </article>
+      <article class="fx-card">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-mobo.png">
+          <source src="media/tab-mobo.mp4" type="video/mp4">
+        </video>
+        <div class="fx-scan" aria-hidden="true"></div>
+        <div class="fx-glow" aria-hidden="true"></div>
+        <span class="live">Loop</span>
+        <h3>Reballing de memoria</h3>
+        <p>Modulos VRAM e RAM. Pad a pad.</p>
+      </article>
+      <article class="fx-card">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-psu.png">
+          <source src="media/tab-psu.mp4" type="video/mp4">
+        </video>
+        <div class="fx-scan" aria-hidden="true"></div>
+        <div class="fx-glow" aria-hidden="true"></div>
+        <span class="live">Loop</span>
+        <h3>Afericao com multimetro</h3>
+        <p>Rails, curto e continuidade na ESD.</p>
+      </article>
+      <article class="fx-card fx-scope">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-hero-lab.png">
+          <source src="media/hero-lab.mp4" type="video/mp4">
+        </video>
+        <div class="fx-scan" aria-hidden="true"></div>
+        <div class="fx-glow" aria-hidden="true"></div>
+        <svg class="scope" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="0,28 12,22 24,34 36,18 48,38 60,20 72,30 84,12 96,40 108,24 120,28 132,16 144,36 156,22 168,32 180,14 192,38 204,26 216,30 228,20 240,28"></polyline>
+        </svg>
+        <span class="live">Loop</span>
+        <h3>Osciloscopio</h3>
+        <p>Forma de onda, ripple e clock na placa.</p>
+      </article>
+    </div>
   </section>
   <section class="split" id="atelier">
     <figure>
@@ -114,7 +160,7 @@
       </div>
       <div>
         <h3>Placas de video</h3>
-        <p>Artefato, tela preta, queda em jogo, VRAM e VRM. Retrabalho termico e BGA quando o laudo fecha. Teste em carga antes de devolver.</p>
+        <p>Artefato, tela preta, queda em jogo, VRAM e VRM. Reballing de GPU quando o laudo fecha. Teste em carga antes de devolver.</p>
       </div>
     </article>
     <article class="panel" data-panel="mobo" hidden>
@@ -222,7 +268,7 @@
   </aside>
   <script>window.ZA_FRASE_MOTIVO = "Prazer. Em que posso lhe ajudar?";</script>
   <script src="js/gemini-key.js"></script>
-  <script src="js/app.js?v=lab8"></script>
+  <script src="js/app.js?v=lab9"></script>
   <script src="js/atendente.js?v=2"></script>
 </body>
 </html>

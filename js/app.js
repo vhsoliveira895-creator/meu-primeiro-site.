@@ -1,14 +1,17 @@
 const PHRASES = [
   "Inform\u00e1tica de laborat\u00f3rio.",
   "Reparo. Manuten\u00e7\u00e3o. Precis\u00e3o.",
-  "GPU. Placa-m\u00e3e. Fonte.",
+  "Reballing. Multimetro. Osciloscopio.",
   "ZA-TECH. Fortaleza."
 ];
 
 const TICKER = [
   "Diagnostico com o dono na bancada.",
   "Onde o equipamento estiver, o dono esta junto.",
-  "GPU em teste de carga.",
+  "Reballing de GPU na lupa.",
+  "Reballing de modulos de memoria.",
+  "Afericao com multimetro.",
+  "Osciloscopio na placa.",
   "Agende uma consulta com o tecnico.",
   "Pre-atendimento com a Zara."
 ];
@@ -55,12 +58,37 @@ function typewriter(el) {
 }
 
 function playLoops() {
-  document.querySelectorAll("video").forEach(function (v) {
-    if (v.closest(".panel") && v.closest(".panel").hidden) return;
+  var nodes = document.querySelectorAll("video");
+  function arm(v) {
     v.muted = true;
     v.playsInline = true;
-    var p = v.play();
-    if (p && p.catch) p.catch(function () {});
+  }
+  if (!("IntersectionObserver" in window)) {
+    nodes.forEach(function (v) {
+      arm(v);
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+    return;
+  }
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (v.closest(".panel") && v.closest(".panel").hidden) return;
+        if (e.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  nodes.forEach(function (v) {
+    arm(v);
+    io.observe(v);
   });
 }
 
