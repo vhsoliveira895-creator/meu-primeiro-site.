@@ -296,20 +296,44 @@
     );
   }
 
+  function capitalizaNome(w) {
+    return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+  }
+
+  function palavraNome(w) {
+    var n = String(w || "").trim();
+    if (n.length < 2 || nomeLixo(n)) return "";
+    if (
+      /^(me|meu|minha|chamo|chama|chamar|nome|sou|eh|eu|de|o|a|um|uma|iae)$/.test(
+        palavraNorm(n)
+      )
+    ) {
+      return "";
+    }
+    return capitalizaNome(n);
+  }
+
   function firstName(raw) {
-    var t = String(raw || "")
-      .replace(/^(me\s+chamo|meu\s+nome\s+[eéè]|eu\s+sou)\s+/i, "")
-      .replace(/^(boa|bom)\s+(dia|tarde|noite)\b[,!.]?\s*/gi, "")
-      .replace(/^(ol[aá]|oi|eae|eai|hey)\b[,!.]?\s*/gi, "")
+    var original = String(raw || "");
+    var ident = original.match(
+      /(?:me\s+chamo|meu\s+nome\s+(?:[eéèê]|eh)|eu\s+sou|pode\s+me\s+chamar(?:\s+de)?)\s+([A-Za-zÀ-ÿ']{2,20})/i
+    );
+    if (ident) {
+      var peloPadrao = palavraNome(ident[1]);
+      if (peloPadrao) return peloPadrao;
+    }
+
+    var t = original
+      .replace(/\b(bom|boa)\s+(dia|tarde|noite)\b/gi, " ")
+      .replace(/\b(ol[aá]+|oi+|eae|eai|hey|eita)\b/gi, " ")
       .replace(/[^A-Za-zÀ-ÿ\s'-]/g, " ")
       .trim();
     var words = t.split(/\s+/).filter(Boolean);
     var i;
-    var w;
+    var got;
     for (i = 0; i < words.length; i++) {
-      w = words[i];
-      if (w.length < 2 || nomeLixo(w)) continue;
-      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+      got = palavraNome(words[i]);
+      if (got) return got;
     }
     return "";
   }
@@ -508,7 +532,7 @@
     if (state.step === "askName") {
       var nome = firstName(text);
       if (!nome) {
-        await speak("Me passa o primeiro nome, sem o cumprimento.");
+        await speak("Prazer. Como posso te chamar?");
         return;
       }
       state.nome = nome;
