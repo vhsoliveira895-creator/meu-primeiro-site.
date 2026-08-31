@@ -593,16 +593,41 @@ button.btn { font-family: inherit; }
 .method b { display: block; color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: 1.3rem; margin-bottom: 0.4rem; }
 
 .ig-band {
-  padding: 2rem 5% 4rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(72vh, 640px);
+  display: grid;
+  place-items: center;
+  padding: 4rem 5%;
+}
+.ig-band-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.ig-band-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(7, 7, 6, 0.28);
+  pointer-events: none;
 }
 .ig-card {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 1.4rem;
   max-width: 40rem;
+  width: min(40rem, 100%);
   margin: 0 auto;
   padding: 1.3rem 1.5rem;
-  background: rgba(12, 11, 9, 0.88);
+  background: rgba(12, 11, 9, 0.82);
 }
 .ig-card:hover { border-color: rgba(196, 165, 116, 0.55); }
 .ig-avatar {
