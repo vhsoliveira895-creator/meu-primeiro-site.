@@ -108,7 +108,8 @@
 
     return (
       "Voce e Zara, da ZA-TECH (Fortaleza). Portugues do Brasil. Nao invente preco nem prazo.\n" +
-      "Apos a apresentacao, diga so 'Prazer' (sem nome) e pergunte, com educacao, o que o cliente busca na ZA-TECH.\n" +
+      "Apos a apresentacao, diga so 'Prazer' (sem nome) e pergunte: em que posso lhe ajudar?\n" +
+      "Nao liste diagnostico nem orcamento na abertura. Nao use sr, sra, senhor, senhora.\n" +
       "Nao assuma que e conserto de maquina. Extraia o motivo: diagnostico, orcamento, peca, upgrade ou informacao do laboratorio.\n" +
       "So depois do motivo, se for reparo, siga o roteiro tecnico. Nunca fale o nome do cliente.\n" +
       "ROTEIRO (se for reparo): sintoma, tipo de equipamento, se desktop/notebook peca CONFIGURACAO " +
@@ -345,10 +346,7 @@
   }
 
   function perguntaMotivo() {
-    return (
-      "Prazer. Pode me dizer o que voce busca na ZA-TECH? " +
-      "Diagnostico, orcamento, peca ou outra orientacao."
-    );
+    return "Prazer. Em que posso lhe ajudar?";
   }
 
   function perguntaConfig() {
@@ -378,7 +376,7 @@
 
     if (state.step === "askSymptom") {
       if (!temDemanda(t) && (t || "").trim().length < 12) {
-        return "Sem problema. Voce veio por conserto, orcamento, peca ou informacao do laboratorio?";
+        return "Sem problema. Pode me contar o que voce precisa?";
       }
       state.sintoma = t;
       if (/or[cç]amento|orcamento|quanto custa|pre[cç]o|valor/.test(t.toLowerCase()) && !detectHardware(t) && !detectSoftware(t) && !detectEquip(t)) {
