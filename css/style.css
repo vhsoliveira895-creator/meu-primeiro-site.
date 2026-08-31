@@ -194,7 +194,6 @@ button.btn { font-family: inherit; }
 
 .hero-bg video.is-live {
   opacity: 1;
-  animation: ken 28s ease-in-out infinite alternate;
 }
 .hero-scan { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 
@@ -228,7 +227,6 @@ button.btn { font-family: inherit; }
 .fx-card video {
   position: absolute;
   inset: 0;
-  animation: ken 18s ease-in-out infinite alternate;
   filter: saturate(1.05) contrast(1.08);
 }
 .fx-card h3,
@@ -350,7 +348,6 @@ button.btn { font-family: inherit; }
 
 .hero-bg video.is-live {
   opacity: 1;
-  animation: ken 28s ease-in-out infinite alternate;
 }
 .hero-scan { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 
@@ -384,7 +381,6 @@ button.btn { font-family: inherit; }
 .fx-card video {
   position: absolute;
   inset: 0;
-  animation: ken 18s ease-in-out infinite alternate;
   filter: saturate(1.05) contrast(1.08);
 }
 .fx-card h3,
