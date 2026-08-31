@@ -17,7 +17,13 @@ html {
 
 body {
   font-family: Manrope, sans-serif;
-  background: var(--void);
+  background-color: var(--void);
+  background-image:
+    linear-gradient(rgba(7, 7, 6, 0.88), rgba(7, 7, 6, 0.92)),
+    url("../media/zatech-mobo.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;
@@ -155,16 +161,33 @@ button.btn { font-family: inherit; }
 }
 
 .marquee {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  overflow: hidden;
   padding: 0.85rem 0;
   color: var(--gold);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-size: 0.72rem;
 }
-.marquee div { display: flex; gap: 2.4rem; width: max-content; animation: slide 28s linear infinite; }
+.marquee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("../media/zatech-gpu.png") center/cover;
+  opacity: 0.22;
+}
+.marquee::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(7, 7, 6, 0.72);
+}
+.marquee div { position: relative; z-index: 1; display: flex; gap: 2.4rem; width: max-content; animation: slide 28s linear infinite; }
 
 .loop-band {
   position: relative;
@@ -480,6 +503,33 @@ button.btn { font-family: inherit; }
 .split div { padding: 5rem 8%; display: flex; flex-direction: column; justify-content: center; }
 .split p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
+.fill-pcb {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.fill-pcb > * { position: relative; z-index: 1; }
+.fill-pcb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.32;
+  filter: saturate(0.75) contrast(1.06);
+}
+.fill-pcb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 7, 6, 0.58), rgba(7, 7, 6, 0.82));
+}
+.fill-pcb--gpu::before { background-image: url("../media/zatech-gpu.png"); }
+.fill-pcb--mobo::before { background-image: url("../media/zatech-mobo.png"); }
+
 .facts { list-style: none; display: grid; gap: 0.9rem; }
 .facts strong { display: block; font-family: "Cormorant Garamond", serif; font-size: 1.8rem; color: var(--gold); }
 
@@ -516,7 +566,7 @@ button.btn { font-family: inherit; }
 .panel.on { display: grid; }
 .panel .shot { min-height: 280px; background: #10100e; }
 .panel .shot img { min-height: 280px; }
-.panel div { padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+.panel > div:last-child { padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
 .panel p { color: var(--mute); margin-top: 0.7rem; }
 
 .cards {
@@ -527,7 +577,7 @@ button.btn { font-family: inherit; }
 .cards article {
   padding: 1.6rem 1.4rem;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+  background: transparent;
 }
 .cards p { color: var(--mute); margin-top: 0.5rem; font-size: 0.92rem; }
 
@@ -539,8 +589,11 @@ button.btn { font-family: inherit; }
   gap: 0.7rem;
 }
 .method li {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border-top: 1px solid var(--gold);
-  padding-top: 1rem;
+  padding: 1rem 0.85rem 1.15rem;
   color: var(--mute);
   font-size: 0.92rem;
 }
@@ -569,6 +622,9 @@ button.btn { font-family: inherit; }
 .cta p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
 footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -578,6 +634,22 @@ footer {
   color: var(--mute);
   font-size: 0.8rem;
 }
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("../media/zatech-gpu.png") center/cover;
+  opacity: 0.18;
+}
+footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(7, 7, 6, 0.82);
+}
+footer > * { position: relative; z-index: 1; }
 footer strong { color: var(--ink); letter-spacing: 0.16em; }
 
 .float {
@@ -842,6 +914,7 @@ body.zara-open .ticker {
   .hero-copy { max-width: 100%; padding-right: 0.5rem; }
 }
 @media (max-width: 640px) {
+  body { background-attachment: scroll; }
   .split, .panel.on, .cards, .method ol, .gallery, .presence, .presence-shots, .bench-grid { grid-template-columns: 1fr; }
   .loop-band { height: 220px; }
   .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }
