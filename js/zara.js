@@ -346,14 +346,14 @@
 
   function perguntaMotivo() {
     return (
-      "Prazer. Pode me dizer, por gentileza, o que o(a) sr(a) busca na ZA-TECH? " +
+      "Prazer. Pode me dizer o que voce busca na ZA-TECH? " +
       "Diagnostico, orcamento, peca ou outra orientacao."
     );
   }
 
   function perguntaConfig() {
     state.step = "askConfig";
-    return "O sr(a) consegue me informar a configuracao do computador? Exemplo: quanto tem de memoria (8 GB, 16 GB), se o disco e SSD ou HD, e qual o processador (Intel i5, Ryzen 5).";
+    return "Voce consegue me informar a configuracao do computador? Exemplo: quanto tem de memoria (8 GB, 16 GB), se o disco e SSD ou HD, e qual o processador (Intel i5, Ryzen 5).";
   }
 
   function perguntaLiga() {
@@ -378,7 +378,7 @@
 
     if (state.step === "askSymptom") {
       if (!temDemanda(t) && (t || "").trim().length < 12) {
-        return "Sem problema. O sr(a) veio por conserto, orcamento, peca ou informacao do laboratorio?";
+        return "Sem problema. Voce veio por conserto, orcamento, peca ou informacao do laboratorio?";
       }
       state.sintoma = t;
       if (/or[cç]amento|orcamento|quanto custa|pre[cç]o|valor/.test(t.toLowerCase()) && !detectHardware(t) && !detectSoftware(t) && !detectEquip(t)) {
@@ -403,13 +403,13 @@
         return aposEquipamento();
       }
       state.step = "askEquip";
-      return "Certo. O sr(a) refere-se a notebook, desktop, placa de video, placa-mae ou fonte?";
+      return "Certo. Voce se refere a notebook, desktop, placa de video, placa-mae ou fonte?";
     }
 
     if (state.step === "askEquip") {
       var found = detectEquip(t);
       if (!found) {
-        return "Confirma, por gentileza: notebook, desktop, placa de video, placa-mae ou fonte?";
+        return "Confirma pra mim: notebook, desktop, placa de video, placa-mae ou fonte?";
       }
       state.equipamento = found;
       return aposEquipamento();
