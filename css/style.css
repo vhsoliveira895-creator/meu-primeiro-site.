@@ -17,13 +17,7 @@ html {
 
 body {
   font-family: Manrope, sans-serif;
-  background-color: var(--void);
-  background-image:
-    linear-gradient(rgba(7, 7, 6, 0.88), rgba(7, 7, 6, 0.92)),
-    url("../media/zatech-mobo.png");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--void);
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;
@@ -102,7 +96,11 @@ a { color: inherit; text-decoration: none; }
     linear-gradient(180deg, transparent 30%, rgba(7,7,6,.85));
 }
 
-.hero-copy { position: relative; z-index: 2; max-width: 40rem; }
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 40rem;
+}
 
 .eyebrow {
   font-size: 0.72rem;
@@ -161,8 +159,6 @@ button.btn { font-family: inherit; }
 }
 
 .marquee {
-  position: relative;
-  isolation: isolate;
   overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -171,23 +167,9 @@ button.btn { font-family: inherit; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-size: 0.72rem;
+  background: rgba(12, 12, 11, 0.92);
 }
-.marquee::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url("../media/zatech-gpu.png") center/cover;
-  opacity: 0.22;
-}
-.marquee::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: rgba(7, 7, 6, 0.72);
-}
-.marquee div { position: relative; z-index: 1; display: flex; gap: 2.4rem; width: max-content; animation: slide 28s linear infinite; }
+.marquee div { display: flex; gap: 2.4rem; width: max-content; animation: slide 28s linear infinite; }
 
 .loop-band {
   position: relative;
@@ -239,6 +221,7 @@ button.btn { font-family: inherit; }
   min-height: 280px;
   overflow: hidden;
   border: 1px solid var(--line);
+  border-radius: 1rem;
   background: #0b0b0a;
 }
 .fx-card img {
@@ -346,17 +329,18 @@ button.btn { font-family: inherit; }
 .presence {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 0;
+  gap: 1rem;
+  padding: 2.2rem 5%;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(90deg, rgba(196,165,116,.06), transparent 55%);
+  background: none;
 }
 .presence-shots {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
   min-height: 420px;
 }
 .presence-copy {
-  padding: 4.5rem 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -390,6 +374,7 @@ button.btn { font-family: inherit; }
   min-height: 280px;
   overflow: hidden;
   border: 1px solid var(--line);
+  border-radius: 1rem;
   background: #0b0b0a;
 }
 .fx-card img {
@@ -497,49 +482,45 @@ button.btn { font-family: inherit; }
 .split {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  min-height: 78vh;
+  gap: 1rem;
+  padding: 2.2rem 5%;
+  min-height: 0;
 }
 .split figure { min-height: 420px; }
-.split div { padding: 5rem 8%; display: flex; flex-direction: column; justify-content: center; }
+.split .copy { display: flex; flex-direction: column; justify-content: center; }
 .split p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
-.fill-pcb {
+.window {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  background: #10100e;
 }
-.fill-pcb > * { position: relative; z-index: 1; }
-.fill-pcb::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.32;
-  filter: saturate(0.75) contrast(1.06);
+.window-photo { min-height: 180px; }
+.window-photo img { width: 100%; height: 100%; object-fit: cover; }
+.window-pane {
+  padding: 1.7rem 1.5rem;
+  background: rgba(12, 11, 9, 0.92);
+  backdrop-filter: blur(14px);
 }
-.fill-pcb::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(7, 7, 6, 0.58), rgba(7, 7, 6, 0.82));
-}
-.fill-pcb--gpu::before { background-image: url("../media/zatech-gpu.png"); }
-.fill-pcb--mobo::before { background-image: url("../media/zatech-mobo.png"); }
+.hero-copy.window-pane { padding: 1.5rem 1.4rem 1.6rem; }
 
 .facts { list-style: none; display: grid; gap: 0.9rem; }
 .facts strong { display: block; font-family: "Cormorant Garamond", serif; font-size: 1.8rem; color: var(--gold); }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  height: 220px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  padding: 1.4rem 5% 2.4rem;
+  height: auto;
 }
-.gallery img { filter: saturate(0.85) contrast(1.05); transition: 0.4s ease; }
-.gallery img:hover { filter: none; transform: scale(1.04); }
+.gallery .window-photo { height: 220px; }
+.gallery img { filter: saturate(0.9) contrast(1.04); transition: 0.4s ease; }
+.gallery .window:hover img { filter: none; transform: scale(1.04); }
 
 .services, .maintain { padding: 5.5rem 5%; }
 .block-head { margin-bottom: 2rem; max-width: 36rem; }
@@ -559,14 +540,16 @@ button.btn { font-family: inherit; }
 .panel {
   display: none;
   grid-template-columns: 1.2fr 0.8fr;
+  gap: 0.9rem;
   min-height: 380px;
-  border: 1px solid var(--line);
-  overflow: hidden;
+  border: none;
+  background: transparent;
+  overflow: visible;
 }
 .panel.on { display: grid; }
 .panel .shot { min-height: 280px; background: #10100e; }
 .panel .shot img { min-height: 280px; }
-.panel > div:last-child { padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+.panel .window-pane { display: flex; flex-direction: column; justify-content: center; }
 .panel p { color: var(--mute); margin-top: 0.7rem; }
 
 .cards {
@@ -576,8 +559,6 @@ button.btn { font-family: inherit; }
 }
 .cards article {
   padding: 1.6rem 1.4rem;
-  border: 1px solid var(--line);
-  background: transparent;
 }
 .cards p { color: var(--mute); margin-top: 0.5rem; font-size: 0.92rem; }
 
@@ -589,42 +570,27 @@ button.btn { font-family: inherit; }
   gap: 0.7rem;
 }
 .method li {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-top: 1px solid var(--gold);
-  padding: 1rem 0.85rem 1.15rem;
   color: var(--mute);
   font-size: 0.92rem;
+  border-top: 2px solid var(--gold);
 }
 .method b { display: block; color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: 1.3rem; margin-bottom: 0.4rem; }
 
 .cta {
   position: relative;
   text-align: center;
-  padding: 6.5rem 5%;
-  overflow: hidden;
+  padding: 5rem 5%;
 }
-.cta-loop {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  margin: 0 auto;
 }
-.cta-veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(7,7,6,.55), rgba(7,7,6,.88));
-}
-.cta-inner { position: relative; z-index: 1; }
 .cta-inner .hero-row { justify-content: center; }
 .cta p { color: var(--mute); margin: 0.8rem 0 1.6rem; }
 
 footer {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -633,23 +599,8 @@ footer {
   border-top: 1px solid var(--line);
   color: var(--mute);
   font-size: 0.8rem;
+  background: rgba(12, 12, 11, 0.92);
 }
-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url("../media/zatech-gpu.png") center/cover;
-  opacity: 0.18;
-}
-footer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: rgba(7, 7, 6, 0.82);
-}
-footer > * { position: relative; z-index: 1; }
 footer strong { color: var(--ink); letter-spacing: 0.16em; }
 
 .float {
@@ -908,13 +859,12 @@ body.zara-open .ticker {
   .nav nav { display: none; }
   .split, .panel.on, .cards, .method ol, .gallery, .presence, .bench-grid { grid-template-columns: 1fr 1fr; }
   .presence-shots { min-height: 280px; }
-  .gallery { height: auto; }
-  .gallery img { height: 160px; }
+  .gallery { grid-template-columns: 1fr 1fr; height: auto; }
+  .gallery .window-photo { height: 180px; }
   .ticker { display: none; }
   .hero-copy { max-width: 100%; padding-right: 0.5rem; }
 }
 @media (max-width: 640px) {
-  body { background-attachment: scroll; }
   .split, .panel.on, .cards, .method ol, .gallery, .presence, .presence-shots, .bench-grid { grid-template-columns: 1fr; }
   .loop-band { height: 220px; }
   .hero { min-height: 92vh; padding: 6.5rem 5% 7.5rem; }

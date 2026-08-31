@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=lab14">
+  <link rel="stylesheet" href="css/style.css?v=lab15">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -35,8 +35,8 @@
     </div>
     <div class="hero-veil"></div>
     <div class="fx-scan hero-scan" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <p class="eyebrow">Fortaleza ? Laboratorio de precisao</p>
+    <div class="hero-copy window window-pane">
+      <p class="eyebrow">Fortaleza — Laboratorio de precisao</p>
       <h1><span id="typeLine"></span><i class="caret"></i></h1>
       <p class="lead">Reparo e manutencao no nivel da placa: GPU, placa-mae, fonte, notebook e desktop. Diagnostico na frente de quem e dono do equipamento. Sem troca no escuro.</p>
       <div class="hero-row">
@@ -58,21 +58,21 @@
       <h2>Reballing. Afericao.</h2>
     </header>
     <div class="bench-grid">
-      <article class="fx-card">
+      <article class="fx-card window">
         <img src="media/zatech-gpu.png" alt="GPU na bancada ZA-TECH">
         <div class="fx-scan" aria-hidden="true"></div>
         <div class="fx-glow" aria-hidden="true"></div>
         <h3>Reballing de GPU</h3>
         <p>Placa de video na lupa. Retrabalho BGA no laboratorio.</p>
       </article>
-      <article class="fx-card">
+      <article class="fx-card window">
         <img src="media/zatech-mobo.png" alt="Placa e chips de memoria">
         <div class="fx-scan" aria-hidden="true"></div>
         <div class="fx-glow" aria-hidden="true"></div>
         <h3>Reballing de memoria</h3>
         <p>Chips de memoria na placa de video.</p>
       </article>
-      <article class="fx-card">
+      <article class="fx-card window">
         <img src="media/zatech-bench.png" alt="Bancada de afericao ZA-TECH">
         <div class="fx-scan" aria-hidden="true"></div>
         <div class="fx-glow" aria-hidden="true"></div>
@@ -82,13 +82,13 @@
     </div>
   </section>
   <section class="split" id="atelier">
-    <figure>
-      <img src="media/zatech-bench.png" alt="Bancada ZA-TECH com equipamento em diagnostico">
+    <figure class="window window-photo">
+      <img src="media/stock-pc-rtx.jpg" alt="Computador com placa GeForce RTX e placa-mae Z790">
     </figure>
-    <div class="copy fill-pcb fill-pcb--mobo">
+    <div class="copy window window-pane">
       <p class="eyebrow">Atelier</p>
       <h2>Informatica como oficio.</h2>
-      <p>A ZA-TECH trata cada peca com precisao: laudo na bancada ESD, retrabalho sob lupa e teste em carga. Fotos do laboratorio — nao ilustracao gerada.</p>
+      <p>A ZA-TECH trata cada peca com precisao: laudo na bancada ESD, retrabalho sob lupa e teste em carga. Fotos do laboratorio e de hardware de referencia, cada uma numa janela — sem repetir o mesmo recorte.</p>
       <ul class="facts">
         <li><strong>03</strong> especialidades de placa</li>
         <li><strong>48h</strong> triagem tipica</li>
@@ -98,10 +98,14 @@
   </section>
   <section class="presence" id="presenca">
     <div class="presence-shots">
-      <img src="media/zatech-client-1.png" alt="Cliente acompanhando o diagnostico na ZA-TECH">
-      <img src="media/zatech-client-2.png" alt="Dono do equipamento junto a bancada">
+      <figure class="window window-photo">
+        <img src="media/zatech-client-1.png" alt="Cliente acompanhando o diagnostico na ZA-TECH">
+      </figure>
+      <figure class="window window-photo">
+        <img src="media/zatech-client-2.png" alt="Dono do equipamento junto a bancada">
+      </figure>
     </div>
-    <div class="presence-copy fill-pcb fill-pcb--gpu">
+    <div class="presence-copy window window-pane">
       <p class="eyebrow">Seguranca</p>
       <h2>Diagnostico na frente do cliente.</h2>
       <p>Aqui na ZA-TECH, onde o seu equipamento estiver, o dono estara junto. Voce ve a triagem, o laudo e o que vai ser feito — mais seguranca no que e seu.</p>
@@ -112,14 +116,13 @@
     </div>
   </section>
   <section class="gallery" id="galeria">
-    <img src="media/zatech-aisle.png" alt="Corredor do laboratorio ZA-TECH">
-    <img src="media/zatech-gpu.png" alt="GPU em bancada">
-    <img src="media/zatech-mobo.png" alt="Placa-mae em analise">
-    <img src="media/zatech-psu.png" alt="Fonte em teste">
-    <img src="media/zatech-hero-lab.png" alt="Laboratorio ZA-TECH">
-    <img src="media/zatech-bench.png" alt="Bancada de precisao">
+    <figure class="window window-photo"><img src="media/zatech-aisle.png" alt="Corredor do laboratorio ZA-TECH"></figure>
+    <figure class="window window-photo"><img src="media/stock-mobo.jpg" alt="PC custom com placa de video em watercooler"></figure>
+    <figure class="window window-photo"><img src="media/stock-pc-rgb.jpg" alt="Computadores em setup de trabalho"></figure>
+    <figure class="window window-photo"><img src="media/stock-pc-build.jpg" alt="Desktop aberto: placa-mae e GPU GeForce RTX"></figure>
+    <figure class="window window-photo"><img src="media/zatech-hero-lab.png" alt="Laboratorio ZA-TECH"></figure>
   </section>
-  <section class="services fill-pcb fill-pcb--gpu" id="servicos">
+  <section class="services" id="servicos">
     <header class="block-head">
       <p class="eyebrow">Servicos</p>
       <h2>Do conector ao silicio.</h2>
@@ -131,63 +134,65 @@
       <button type="button" class="tab" data-tab="note">Notebook</button>
     </div>
     <article class="panel on" data-panel="gpu">
-      <div class="shot">
-        <img src="media/zatech-gpu.png" alt="Placa de video em bancada">
+      <div class="shot window window-photo">
+        <img src="media/stock-rtx4090.jpg" alt="Placa GeForce RTX em gabinete">
       </div>
-      <div class="fill-pcb fill-pcb--gpu">
+      <div class="window window-pane">
+        <h3>Placas de video</h3>
         <p>Artefato, tela preta, queda em jogo, VRAM e VRM. Reballing de GPU quando o laudo fecha. Teste em carga antes de devolver.</p>
       </div>
     </article>
     <article class="panel" data-panel="mobo" hidden>
-      <div class="shot">
-        <img src="media/zatech-mobo.png" alt="Placa-mae em analise">
+      <div class="shot window window-photo">
+        <img src="media/stock-gpu.jpg" alt="Placa-mae TUF Gaming em close">
       </div>
-      <div class="fill-pcb fill-pcb--mobo">
+      <div class="window window-pane">
+        <h3>Placas-mae</h3>
         <p>Sem POST, curto, BIOS, liquido e trilhas. Medicao de rails. Trocamos o que falhou — nao a placa inteira por palpite.</p>
       </div>
     </article>
     <article class="panel" data-panel="psu" hidden>
-      <div class="shot">
-        <img src="media/zatech-psu.png" alt="Fonte em teste">
+      <div class="shot window window-photo">
+        <img src="media/zatech-psu.png" alt="Fonte em teste na ZA-TECH">
       </div>
-      <div class="fill-pcb fill-pcb--mobo">
+      <div class="window window-pane">
+        <h3>Fontes</h3>
         <p>Nao liga, desarma, ruido e protecao. Recap e MOSFET em bancada isolada. Validacao de estabilidade.</p>
       </div>
     </article>
     <article class="panel" data-panel="note" hidden>
-      <div class="shot">
-        <img src="media/zatech-hero-lab.png" alt="Notebook e desktop na bancada">
+      <div class="shot window window-photo">
+        <img src="media/stock-pc-inside.jpg" alt="Notebook e desktop na estacao">
       </div>
-      <div class="fill-pcb fill-pcb--gpu">
+      <div class="window window-pane">
+        <h3>Notebook e desktop</h3>
         <p>Nao liga, superaquecimento, tela, teclado, SSD e memoria. Manutencao preventiva e corretiva no mesmo laboratorio, com voce por perto.</p>
       </div>
     </article>
   </section>
-  <section class="maintain fill-pcb fill-pcb--mobo" id="manutencao">
+  <section class="maintain" id="manutencao">
     <header class="block-head">
       <p class="eyebrow">Manutencao</p>
       <h2>Maquina viva pede rotina.</h2>
     </header>
     <div class="cards">
-      <article class="fill-pcb fill-pcb--gpu"><h3>Termica</h3><p>Pasta, pads, po e coolers. Temperatura cai, ruido some, vida util sobe.</p></article>
-      <article class="fill-pcb fill-pcb--mobo"><h3>Upgrade</h3><p>RAM, NVMe, fonte e GPU com checagem de fonte e slot. Sem peca incompativel.</p></article>
-      <article class="fill-pcb fill-pcb--gpu"><h3>Sistema</h3><p>Backup, formatacao limpa, drivers e checagem de disco. Dados primeiro.</p></article>
-      <article class="fill-pcb fill-pcb--mobo"><h3>Preventiva</h3><p>Contrato simples para quem nao pode parar: revisao periodica e prioridade na fila.</p></article>
+      <article class="window window-pane"><h3>Termica</h3><p>Pasta, pads, po e coolers. Temperatura cai, ruido some, vida util sobe.</p></article>
+      <article class="window window-pane"><h3>Upgrade</h3><p>RAM, NVMe, fonte e GPU com checagem de fonte e slot. Sem peca incompativel.</p></article>
+      <article class="window window-pane"><h3>Sistema</h3><p>Backup, formatacao limpa, drivers e checagem de disco. Dados primeiro.</p></article>
+      <article class="window window-pane"><h3>Preventiva</h3><p>Contrato simples para quem nao pode parar: revisao periodica e prioridade na fila.</p></article>
     </div>
   </section>
-  <section class="method fill-pcb fill-pcb--gpu" id="metodo">
+  <section class="method" id="metodo">
     <ol>
-      <li class="fill-pcb fill-pcb--gpu"><b>01</b> Triagem com sintoma e fotos</li>
-      <li class="fill-pcb fill-pcb--mobo"><b>02</b> Diagnostico na frente do cliente</li>
-      <li class="fill-pcb fill-pcb--gpu"><b>03</b> Aprovacao do teto de custo</li>
-      <li class="fill-pcb fill-pcb--mobo"><b>04</b> Reparo e limpeza</li>
-      <li class="fill-pcb fill-pcb--gpu"><b>05</b> Burn-in e entrega com laudo</li>
+      <li class="window window-pane"><b>01</b> Triagem com sintoma e fotos</li>
+      <li class="window window-pane"><b>02</b> Diagnostico na frente do cliente</li>
+      <li class="window window-pane"><b>03</b> Aprovacao do teto de custo</li>
+      <li class="window window-pane"><b>04</b> Reparo e limpeza</li>
+      <li class="window window-pane"><b>05</b> Burn-in e entrega com laudo</li>
     </ol>
   </section>
   <section class="cta">
-    <img class="cta-loop" src="media/zatech-hero-lab.png" alt="" aria-hidden="true">
-    <div class="cta-veil"></div>
-    <div class="cta-inner">
+    <div class="cta-inner window window-pane">
       <h2>O dono fica junto do equipamento.</h2>
       <p>Agende uma consulta com um dos nossos tecnicos ou comece o pre-atendimento com a Zara. (85) 99988-6993 — Fortaleza, CE</p>
       <div class="hero-row">
@@ -232,7 +237,7 @@
   </aside>
   <script>window.ZA_FRASE_MOTIVO = "Prazer. Em que posso lhe ajudar?";</script>
   <script src="js/gemini-key.js"></script>
-  <script src="js/app.js?v=lab14"></script>
+  <script src="js/app.js?v=lab15"></script>
   <script src="js/atendente.js?v=2"></script>
 </body>
 </html>
