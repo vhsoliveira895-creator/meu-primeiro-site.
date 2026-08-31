@@ -151,10 +151,7 @@
   function revealLast() {
     var log = el("zaraLog");
     if (!log) return;
-    var rows = log.querySelectorAll(".zara-row");
-    var last = rows[rows.length - 1];
-    if (last) last.scrollIntoView({ block: "nearest", inline: "nearest" });
-    else log.scrollTop = log.scrollHeight;
+    log.scrollTop = log.scrollHeight;
   }
 
   function bubble(who, text) {

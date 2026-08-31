@@ -305,13 +305,13 @@ footer strong { color: var(--ink); letter-spacing: 0.16em; }
 .zara {
   position: fixed;
   right: 1.2rem;
-  bottom: calc(8.2rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(6.4rem + env(safe-area-inset-bottom, 0px));
   z-index: 90;
+  width: min(22rem, calc(100vw - 1.6rem));
+  max-width: calc(100vw - 1.6rem);
   font-family: Manrope, sans-serif;
   isolation: isolate;
-  .zara {
-    max-width: min(24rem, calc(100vw - 1.4rem));
-  }
+  box-sizing: border-box;
 }
 
 body.zara-open .toast,
@@ -344,6 +344,8 @@ body.zara-open .ticker {
 .zara-face {
   width: 44px;
   height: 44px;
+  max-width: 44px;
+  max-height: 44px;
   border-radius: 50%;
   object-fit: cover;
   flex: none;
@@ -360,8 +362,9 @@ body.zara-open .ticker {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: min(24rem, calc(100vw - 1.4rem));
-  max-height: min(38rem, calc(100dvh - 8.5rem));
+  max-width: 100%;
+  height: min(28rem, calc(100dvh - 8rem));
+  max-height: calc(100dvh - 8rem);
   background: #10100e;
   border: 1px solid var(--line);
   border-radius: 1.1rem;
@@ -405,19 +408,20 @@ body.zara-open .ticker {
 
 .zara-log {
   flex: 1 1 auto;
-  min-height: 14rem;
+  min-height: 0;
   min-width: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.85rem 0.8rem 1rem;
+  padding: 0.75rem 0.7rem;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.55rem;
 }
 
 .zara-row {
   display: flex;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   flex: none;
 }
@@ -425,19 +429,18 @@ body.zara-open .ticker {
 .zara-row.zara { justify-content: flex-start; }
 
 .zara-row p {
+  box-sizing: border-box;
   min-width: 0;
+  width: auto;
   max-width: 100%;
-  width: 100%;
   margin: 0;
-  padding: 0.7rem 0.85rem;
+  padding: 0.65rem 0.75rem;
   border-radius: 0.85rem;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  letter-spacing: 0.01em;
-  white-space: pre-wrap;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
-  hyphens: none;
 }
 
 .zara-typing {
@@ -479,12 +482,12 @@ body.zara-open .ticker {
 .zara-form {
   display: flex;
   gap: 0.4rem;
-  padding: 0.7rem;
+  padding: 0.65rem 0.7rem 0.75rem;
   border-top: 1px solid var(--line);
   background: #10100e;
-  flex: none;
+  flex: 0 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .zara-form input {
@@ -540,15 +543,16 @@ body.zara-open .ticker {
   .zara {
     right: 0.6rem;
     left: 0.6rem;
-    bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px));
+    width: auto;
     max-width: none;
+    bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px));
   }
   .zara-win {
     width: 100%;
-    max-width: none;
-    max-height: calc(100dvh - 6.8rem - env(safe-area-inset-bottom, 0px));
+    height: min(70dvh, calc(100dvh - 7.2rem));
+    max-height: calc(100dvh - 7.2rem);
   }
-  .zara-log { min-height: 12rem; }
+  .zara-log { min-height: 0; }
   .zara-row p { font-size: 1rem; line-height: 1.55; }
   .zara-row p,
   .zara-head strong,
