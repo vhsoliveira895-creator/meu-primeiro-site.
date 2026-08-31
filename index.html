@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>ZA-TECH | Laboratorio de informatica em Fortaleza</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -9,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=chatfix2">
+  <link rel="stylesheet" href="css/style.css?v=lab8">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -17,31 +18,31 @@
     <a class="brand" href="#topo">ZA<em>-</em>TECH</a>
     <nav>
       <a href="#atelier">Atelier</a>
+      <a href="#presenca">Presenca</a>
       <a href="#servicos">Servicos</a>
       <a href="#manutencao">Manutencao</a>
       <a href="#metodo">Metodo</a>
-      <a href="#atelier">Galeria</a>
+      <a href="#galeria">Galeria</a>
     </nav>
     <a class="nav-zap" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Vim%20pelo%20site." target="_blank" rel="noopener noreferrer">Fale conosco</a>
   </header>
   <section class="hero" id="topo">
     <div class="hero-bg" aria-hidden="true">
-      <img class="is-live" src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
-      <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
-      <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
-      <img src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="">
+      <video class="is-live" autoplay muted loop playsinline preload="auto" poster="media/zatech-hero-lab.png">
+        <source src="media/hero-lab.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="hero-veil"></div>
     <div class="hero-copy">
       <p class="eyebrow">Fortaleza ? Laboratorio de precisao</p>
       <h1><span id="typeLine"></span><i class="caret"></i></h1>
-      <p class="lead">Reparo e manutencao de informatica no nivel da placa: GPU, placa-mae, fonte, notebook e desktop. Sem troca no escuro. Sem balcao generico.</p>
+      <p class="lead">Reparo e manutencao no nivel da placa: GPU, placa-mae, fonte, notebook e desktop. Diagnostico na frente de quem e dono do equipamento. Sem troca no escuro.</p>
       <div class="hero-row">
-        <a class="btn gold" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Preciso%20de%20diagnostico." target="_blank" rel="noopener noreferrer">WhatsApp direto</a>
-        <a class="btn line" href="#servicos">Ver linhas de servico</a>
+        <a class="btn gold pulse" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Quero%20agendar%20uma%20consulta%20com%20um%20tecnico." target="_blank" rel="noopener noreferrer">Agende uma consulta</a>
+        <button class="btn line" type="button" data-open-zara>Pre-atendimento com a Zara</button>
       </div>
     </div>
-    <aside class="ticker" aria-live="polite"><span id="tickerMsg">Bancada ESD pronta.</span></aside>
+    <aside class="ticker" aria-live="polite"><span id="tickerMsg">Diagnostico com o dono na bancada.</span></aside>
   </section>
   <section class="marquee" aria-hidden="true">
     <div>
@@ -49,14 +50,21 @@
       <span>Notebook</span><span>Desktop</span><span>GPU</span><span>Placa-mae</span><span>Fonte</span><span>Limpeza termica</span><span>Upgrade</span><span>SO e backup</span>
     </div>
   </section>
+  <section class="loop-band" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="media/zatech-aisle.png">
+      <source src="media/hero-lab.mp4" type="video/mp4">
+    </video>
+    <div class="loop-band-veil"></div>
+    <p>Laboratorio em movimento. Voce acompanha.</p>
+  </section>
   <section class="split" id="atelier">
     <figure>
-      <img src="https://images.pexels.com/photos/4792729/pexels-photo-4792729.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="Tecnico trabalhando em notebook aberto">
+      <img src="media/zatech-bench.png" alt="Bancada ZA-TECH com equipamento em diagnostico">
     </figure>
     <div>
       <p class="eyebrow">Atelier</p>
       <h2>Informatica como oficio.</h2>
-      <p>A ZA-TECH trata maquina como peca de precisao: diagnostico escrito, retrabalho sob lupa e teste em carga. Fotos reais de bancada ? nao ilustracao gerada.</p>
+      <p>A ZA-TECH trata cada peca com precisao: laudo na bancada ESD, retrabalho sob lupa e teste em carga. Fotos e videos reais do laboratorio — nao ilustracao gerada.</p>
       <ul class="facts">
         <li><strong>03</strong> especialidades de placa</li>
         <li><strong>48h</strong> triagem tipica</li>
@@ -64,13 +72,28 @@
       </ul>
     </div>
   </section>
-  <section class="gallery">
-    <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Placa de circuito real">
-    <img src="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Hardware de computador">
-    <img src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Estacao de trabalho">
-    <img src="https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Sala de servidores">
-    <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Solda em componente">
-    <img src="https://images.pexels.com/photos/777001/pexels-photo-777001.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900" alt="Setup de PC">
+  <section class="presence" id="presenca">
+    <div class="presence-shots">
+      <img src="media/zatech-client-1.png" alt="Cliente acompanhando o diagnostico na ZA-TECH">
+      <img src="media/zatech-client-2.png" alt="Dono do equipamento junto a bancada">
+    </div>
+    <div class="presence-copy">
+      <p class="eyebrow">Seguranca</p>
+      <h2>Diagnostico na frente do cliente.</h2>
+      <p>Aqui na ZA-TECH, onde o seu equipamento estiver, o dono estara junto. Voce ve a triagem, o laudo e o que vai ser feito — mais seguranca no que e seu.</p>
+      <div class="hero-row">
+        <a class="btn gold pulse" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Quero%20agendar%20uma%20consulta%20com%20um%20tecnico." target="_blank" rel="noopener noreferrer">Agende uma consulta</a>
+        <button class="btn line" type="button" data-open-zara>Comece o pre-atendimento com a Zara</button>
+      </div>
+    </div>
+  </section>
+  <section class="gallery" id="galeria">
+    <img src="media/zatech-aisle.png" alt="Corredor do laboratorio ZA-TECH">
+    <img src="media/zatech-gpu.png" alt="GPU em bancada">
+    <img src="media/zatech-mobo.png" alt="Placa-mae em analise">
+    <img src="media/zatech-psu.png" alt="Fonte em teste">
+    <img src="media/zatech-hero-lab.png" alt="Laboratorio ZA-TECH">
+    <img src="media/zatech-bench.png" alt="Bancada de precisao">
   </section>
   <section class="services" id="servicos">
     <header class="block-head">
@@ -84,31 +107,47 @@
       <button type="button" class="tab" data-tab="note">Notebook</button>
     </div>
     <article class="panel on" data-panel="gpu">
-      <img src="https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Placa de video em bancada">
+      <div class="shot">
+        <video autoplay muted loop playsinline preload="metadata" poster="media/zatech-gpu.png">
+          <source src="media/tab-gpu.mp4" type="video/mp4">
+        </video>
+      </div>
       <div>
         <h3>Placas de video</h3>
         <p>Artefato, tela preta, queda em jogo, VRAM e VRM. Retrabalho termico e BGA quando o laudo fecha. Teste em carga antes de devolver.</p>
       </div>
     </article>
     <article class="panel" data-panel="mobo" hidden>
-      <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Placa-mae em close">
+      <div class="shot">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-mobo.png">
+          <source src="media/tab-mobo.mp4" type="video/mp4">
+        </video>
+      </div>
       <div>
         <h3>Placas-mae</h3>
-        <p>Sem POST, curto, BIOS, liquido e trilhas. Medicao de rails. Trocamos o que falhou ? nao a placa inteira por palpite.</p>
+        <p>Sem POST, curto, BIOS, liquido e trilhas. Medicao de rails. Trocamos o que falhou — nao a placa inteira por palpite.</p>
       </div>
     </article>
     <article class="panel" data-panel="psu" hidden>
-      <img src="https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Componentes de fonte e circuito">
+      <div class="shot">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-psu.png">
+          <source src="media/tab-psu.mp4" type="video/mp4">
+        </video>
+      </div>
       <div>
         <h3>Fontes</h3>
         <p>Nao liga, desarma, ruido e protecao. Recap e MOSFET em bancada isolada. Validacao de estabilidade.</p>
       </div>
     </article>
     <article class="panel" data-panel="note" hidden>
-      <img src="https://images.pexels.com/photos/4792729/pexels-photo-4792729.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" alt="Manutencao de notebook">
+      <div class="shot">
+        <video muted loop playsinline preload="metadata" poster="media/zatech-bench.png">
+          <source src="media/hero-lab.mp4" type="video/mp4">
+        </video>
+      </div>
       <div>
         <h3>Notebook e desktop</h3>
-        <p>Nao liga, superaquecimento, tela, teclado, SSD e memoria. Manutencao preventiva e corretiva no mesmo laboratorio.</p>
+        <p>Nao liga, superaquecimento, tela, teclado, SSD e memoria. Manutencao preventiva e corretiva no mesmo laboratorio, com voce por perto.</p>
       </div>
     </article>
   </section>
@@ -127,16 +166,25 @@
   <section class="method" id="metodo">
     <ol>
       <li><b>01</b> Triagem com sintoma e fotos</li>
-      <li><b>02</b> Diagnostico na bancada ESD</li>
+      <li><b>02</b> Diagnostico na frente do cliente</li>
       <li><b>03</b> Aprovacao do teto de custo</li>
       <li><b>04</b> Reparo e limpeza</li>
       <li><b>05</b> Burn-in e entrega com laudo</li>
     </ol>
   </section>
   <section class="cta">
-    <h2>A conversa comeca no WhatsApp.</h2>
-    <p>(85) 99988-6993 ? Fortaleza, CE</p>
-    <a class="btn gold" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Vim%20pelo%20site%20e%20quero%20falar%20sobre%20um%20reparo." target="_blank" rel="noopener noreferrer">Fale conosco agora</a>
+    <video class="cta-loop" autoplay muted loop playsinline preload="metadata" poster="media/zatech-hero-lab.png" aria-hidden="true">
+      <source src="media/hero-lab.mp4" type="video/mp4">
+    </video>
+    <div class="cta-veil"></div>
+    <div class="cta-inner">
+      <h2>O dono fica junto do equipamento.</h2>
+      <p>Agende uma consulta com um dos nossos tecnicos ou comece o pre-atendimento com a Zara. (85) 99988-6993 — Fortaleza, CE</p>
+      <div class="hero-row">
+        <a class="btn gold pulse" href="https://wa.me/5585999886993?text=Ola%2C%20ZA-TECH.%20Quero%20agendar%20uma%20consulta%20com%20um%20tecnico." target="_blank" rel="noopener noreferrer">Agende uma consulta</a>
+        <button class="btn line" type="button" data-open-zara>Falar com a Zara</button>
+      </div>
+    </div>
   </section>
   <footer>
     <strong>ZA-TECH</strong>
@@ -174,7 +222,7 @@
   </aside>
   <script>window.ZA_FRASE_MOTIVO = "Prazer. Em que posso lhe ajudar?";</script>
   <script src="js/gemini-key.js"></script>
-  <script src="js/app.js?v=lux6"></script>
-  <script src="js/atendente.js?v=1"></script>
+  <script src="js/app.js?v=lab8"></script>
+  <script src="js/atendente.js?v=2"></script>
 </body>
 </html>

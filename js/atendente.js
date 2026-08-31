@@ -628,6 +628,9 @@
 
   function start() {
     bind();
+    window.ZA_ABRIR_ZARA = function () {
+      setOpen(true);
+    };
     el("zaraLaunch").hidden = false;
     el("zaraWin").hidden = true;
     openLater();

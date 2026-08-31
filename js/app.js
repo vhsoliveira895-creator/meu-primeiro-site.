@@ -6,17 +6,17 @@ const PHRASES = [
 ];
 
 const TICKER = [
-  "Bancada ESD pronta.",
+  "Diagnostico com o dono na bancada.",
+  "Onde o equipamento estiver, o dono esta junto.",
   "GPU em teste de carga.",
-  "Notebook em limpeza t\u00e9rmica.",
-  "Fonte em bancada isolada.",
-  "Laudo fotogr\u00e1fico na etapa cr\u00edtica."
+  "Agende uma consulta com o tecnico.",
+  "Pre-atendimento com a Zara."
 ];
 
 const TOASTS = [
-  "Chamado novo: diagn\u00f3stico de placa-m\u00e3e.",
-  "Manuten\u00e7\u00e3o preventiva liberada.",
-  "Cliente no WhatsApp (85) 99988-6993."
+  "Diagnostico na frente do cliente.",
+  "Agende uma consulta: (85) 99988-6993.",
+  "Comece o pre-atendimento com a Zara."
 ];
 
 function typewriter(el) {
@@ -54,15 +54,29 @@ function typewriter(el) {
   tick();
 }
 
+function playLoops() {
+  document.querySelectorAll("video").forEach(function (v) {
+    if (v.closest(".panel") && v.closest(".panel").hidden) return;
+    v.muted = true;
+    v.playsInline = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  });
+}
+
+function playPanelVideo(id) {
+  document.querySelectorAll(".panel video").forEach(function (v) {
+    v.pause();
+  });
+  var panel = document.querySelector('.panel[data-panel="' + id + '"]');
+  var v = panel && panel.querySelector("video");
+  if (!v) return;
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+}
+
 function heroPhotos() {
-  const imgs = Array.from(document.querySelectorAll(".hero-bg img"));
-  if (imgs.length < 2) return;
-  let n = 0;
-  setInterval(function () {
-    imgs[n].classList.remove("is-live");
-    n = (n + 1) % imgs.length;
-    imgs[n].classList.add("is-live");
-  }, 5600);
+  playLoops();
 }
 
 function ticker() {
@@ -109,6 +123,7 @@ function tabs() {
         const on = p.getAttribute("data-panel") === id;
         p.classList.toggle("on", on);
         p.hidden = !on;
+        if (on) playPanelVideo(id);
       });
     });
   });
@@ -120,6 +135,11 @@ document.addEventListener("DOMContentLoaded", function () {
   ticker();
   toasts();
   tabs();
+  document.querySelectorAll("[data-open-zara]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (typeof window.ZA_ABRIR_ZARA === "function") window.ZA_ABRIR_ZARA();
+    });
+  });
   document.getElementById("toTop").addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
