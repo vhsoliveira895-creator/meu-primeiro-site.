@@ -1,5 +1,4 @@
 (function () {
-  var DELAY_MS = 12000;
   var MAX_WAIT = 20000;
   var MODELS = ["gemini-3.5-flash", "gemini-2.5-flash", "gemini-flash-latest"];
   var WA_LAB =
@@ -18,7 +17,8 @@
     config: "",
     classe: "",
     messages: [],
-    busy: false
+    busy: false,
+    greeted: false
   };
 
   function key() {
@@ -243,13 +243,20 @@
     var toast = el("toast");
     if (open && toast) toast.hidden = true;
     if (open) {
-      if (state.step === "askName" && !el("zaraLog").querySelector(".zara-row")) greet();
+      greet();
       var input = el("zaraInput");
       if (input) input.focus();
     }
   }
 
   function greet() {
+    if (state.greeted || state.step !== "askName") return;
+    var log = el("zaraLog");
+    if (log && log.querySelector(".zara-row")) {
+      state.greeted = true;
+      return;
+    }
+    state.greeted = true;
     var text =
       saudacao() +
       ". Eu sou a Zara, da ZA-TECH. Seja bem-vindo. Como posso te chamar?";
@@ -613,27 +620,15 @@
     }
   }
 
-  function openLater() {
-    try {
-      if (sessionStorage.getItem(SESSION_KEY) === "minimized") {
-        el("zaraLaunch").hidden = false;
-        return;
-      }
-    } catch (e) {}
-    setTimeout(function () {
-      setOpen(true);
-      if (state.step === "askName" && !el("zaraLog").querySelector(".zara-row")) greet();
-    }, DELAY_MS);
-  }
-
   function start() {
     bind();
     window.ZA_ABRIR_ZARA = function () {
       setOpen(true);
     };
-    el("zaraLaunch").hidden = false;
-    el("zaraWin").hidden = true;
-    openLater();
+    var launch = el("zaraLaunch");
+    var win = el("zaraWin");
+    if (launch) launch.hidden = false;
+    if (win) win.hidden = true;
   }
 
   if (document.readyState === "loading") {
